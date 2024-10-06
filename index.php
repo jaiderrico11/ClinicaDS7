@@ -12,7 +12,7 @@
                     <p class="card-text">Añade, elimina o modifica usuarios.</p>
                     <a href="#" class="btn btn-primary mb-3">Registrar Usuario</a>
                     <a href="#" class="btn btn-primary mb-3">Ver todos los usuarios</a>
-                    <a href="#" class="btn btn-primary mb-3">Definir y Consultar Servicios Médicos</a>
+                    <a href="./views/servicios_medicos.php" class="btn btn-primary mb-3">Definir y Consultar Servicios Médicos</a>
                     <a href="#" class="btn btn-primary mb-3">Control de Insumos e Inventario</a>
                 </div>
             </div>
