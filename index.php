@@ -1,7 +1,7 @@
 <?php require("./template/header.php") ?>
 
 <!-- Contenido principal -->
-<div class="container mt-5">
+<section class="container mt-5">
     <h1 class="text-center">Bienvenido a la Clínica</h1>
     <div class="row my-4">
 
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
