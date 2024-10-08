@@ -9,7 +9,7 @@ $db = $database->getConnection();
 
 $servicios_medicos = new Servicios_Medicos($db);
 
-$result = $servicios_medicos->consultarServicios();
+$result = $servicios_medicos->consultar_servicios();
 
 ?>
 <a href="../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>

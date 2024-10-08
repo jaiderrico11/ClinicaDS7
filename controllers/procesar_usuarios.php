@@ -1,22 +1,25 @@
 <?php
 include "../includes/Database.php";
-include "../includes/Servicios_Medicos.php";
+include "../includes/Usuarios.php";
 
 // Crear una instancia de la clase Database y obtener la conexión
 $database = new Database();
 $db = $database->getConnection();
 
-$servicios_medicos = new Servicios_Medicos($db);
+$usuarios = new Usuarios($db);
 
-$servicios_medicos->nombre_servicio = $_POST['nombre'];
-$servicios_medicos->descripcion = $_POST['descripcion'];
+$usuarios->nombre = $_POST['nombre'];
+$usuarios->email = $_POST['email'];
+$usuarios->contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
+$usuarios->rol = $_POST['rol'];
 
 // Registrar el servicio médico
-if ($servicios_medicos->registrar_servicio()) {
-    $resultado = "Servicio Médico registrado exitosamente.";
+if ($usuarios->registrar_usuarios()) {
+    $resultado = "Usuario registrado exitosamente.";
 } else {
-    $resultado = "Error al registrar el Servicio Médico.";
+    $resultado = "Error al registrar el Usuario.";
 }
+
 ?>
 
 <?php require("../template/header.php"); ?>
@@ -25,7 +28,7 @@ if ($servicios_medicos->registrar_servicio()) {
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="text-center border p-5">
             <?php echo $resultado; ?>
-            <p class="mt-3">Redirigiendo en 5 segundos a servicios médicos</p>
+            <p class="mt-3">Redirigiendo en 5 segundos a la lista de usuarios</p>
         </div>
     </div>
 </section>
@@ -33,7 +36,8 @@ if ($servicios_medicos->registrar_servicio()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/servicios_medicos.php";
+        window.location.href = "../views/lista_usuarios.php";
     }, 5000);
 </script>
+
 <?php require("../template/footer.php"); ?>

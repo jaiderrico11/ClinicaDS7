@@ -33,7 +33,7 @@ class Servicios_Medicos
         return false;
     }
 
-    public function consultarServicios()
+    public function consultar_servicios()
     {
         $query = "SELECT * FROM " . $this->table_name . " ORDER BY nombre_servicio";
         $stmt = $this->conn->prepare($query);

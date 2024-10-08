@@ -10,8 +10,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Gestión Administrativa</h5>
                     <p class="card-text">Añade, elimina o modifica usuarios.</p>
-                    <a href="#" class="btn btn-primary mb-3">Registrar Usuario</a>
-                    <a href="#" class="btn btn-primary mb-3">Ver todos los usuarios</a>
+                    <a href="./views/registrar_usuario.php" class="btn btn-primary mb-3">Registrar Usuario</a>
+                    <a href="./views/lista_usuarios.php" class="btn btn-primary mb-3">Ver todos los usuarios</a>
                     <a href="./views/servicios_medicos.php" class="btn btn-primary mb-3">Definir y Consultar Servicios Médicos</a>
                     <a href="#" class="btn btn-primary mb-3">Control de Insumos e Inventario</a>
                 </div>
