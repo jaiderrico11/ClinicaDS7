@@ -15,7 +15,7 @@ class Servicios_Medicos
         $this->conn = $db;
     }
 
-    public function agregarServicios()
+    public function registrar_servicio()
     {
         $query = "INSERT INTO " . $this->table_name . " (nombre_servicio, descripcion) VALUES(:nombre_servicio, :descripcion)";
         $stmt = $this->conn->prepare($query);

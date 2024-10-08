@@ -16,7 +16,8 @@ $result = $servicios_medicos->consultarServicios();
 
 <section class="container">
     <div class="text-center">
-        <a href="#" class="btn btn-primary">Agregar +</a>
+        <h1 class="mb-4">Servicios Médicos</h1>
+        <a href="./agregar_servicios.php" class="btn btn-primary">Agregar +</a>
     </div>
 
     <?php if (isset($result) && !empty($result)) : ?>
@@ -36,9 +37,5 @@ $result = $servicios_medicos->consultarServicios();
         <p class="my-4 text-center">No hay servicios registrados.</p>
     <?php endif; ?>
 </section>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <?php require("../template/footer.php") ?>
