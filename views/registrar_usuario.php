@@ -24,13 +24,15 @@
                     <label for="rol" class="form-label">Rol</label>
                     <select name="rol" required id="rol" class="form-select">
                         <option value="" selected disabled>Seleccione un rol</option>
-                        <option value="admin">Administrador</option>
-                        <option value="medico">Médico</option>
-                        <option value="enfermeria">Enfermería</option>
-                        <option value="apoyo">Apoyo</option>
-                        <option value="farmaceuticos">Farmacéuticos</option>
-                        <option value="mantenimiento">Limpieza y Mantenimiento</option>
-                        <option value="emergencias">Emergencias</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Médico">Médico</option>
+                        <option value="Enfermería">Enfermería</option>
+                        <option value="Apoyo">Apoyo</option>
+                        <option value="Farmacéuticos">Farmacéuticos</option>
+                        <option value="Limpieza y Mantenimiento">Limpieza y Mantenimiento</option>
+                        <option value="Emergencias">Emergencias</option>
+                        <option value="Recursos Humanos">Recursos Humanos</option>
+                        <option value="Recepcionista">Recepcionista</option>
                     </select>
                 </div>
 

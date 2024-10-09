@@ -23,8 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['rol'] = $usuario['rol'];
 
         // Redirigir según el rol
-        if ($usuario['rol'] == 'admin') {
+        if ($usuario['rol'] == 'Administrador') {
             header("Location: ../views/admin_inicio.php"); // Redirigir a la pantalla de administrador
+        } else if ($usuario['rol'] == 'Recursos Humanos') {
+            header("Location: ../views/inicio_recursos_humanos.php");
+        } else if ($usuario['rol'] == 'Recepcionista') {
+            header("Location: ../views/inicio_recepcionista.php");
         } else {
             header("Location: ../views/usuario_inicio.php"); // Redirigir a la pantalla de usuario regular
         }

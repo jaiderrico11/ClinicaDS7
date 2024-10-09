@@ -1,7 +1,9 @@
 <?php require("../template/header.php") ?>
 
+<a href="../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
+
 <!-- Contenido principal -->
-<section class="container mt-5">
+<section class="container">
     <h1 class="text-center">Bienvenido a la Clínica</h1>
     <div class="row my-4">
 
@@ -23,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Gestión de Recursos Humanos</h5>
                     <p class="card-text">Consulta y genera reportes del sistema.</p>
-                    <a href="#" class="btn btn-success mb-3">Registro/Verificación de perfil médico</a>
+                    <a href="./registrar_medico.php" class="btn btn-success mb-3">Registro/Verificación de perfil médico</a>
                     <a href="#" class="btn btn-success mb-3">Gestión de turnos y asignación de personal</a>
                 </div>
             </div>
@@ -34,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Gestión de Recepción</h5>
                     <p class="card-text">Ajusta las configuraciones globales.</p>
-                    <a href="#" class="btn btn-warning mb-3">Registro de pacientes</a>
+                    <a href="./registrar_paciente.php" class="btn btn-warning mb-3">Registro de pacientes</a>
                     <a href="#" class="btn btn-warning mb-3">Registro de pago de consultas</a>
                     <a href="#" class="btn btn-warning mb-3">Creación/Modificación/Cancelación de Citas</a>
                 </div>

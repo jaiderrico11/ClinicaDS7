@@ -1,5 +1,7 @@
 <?php require("../template/header.php") ?>
 
+<a href="../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
+
 <!-- Contenido principal -->
 <section class="container mt-5">
     <h1 class="text-center">Gestión de Recepción</h1>
