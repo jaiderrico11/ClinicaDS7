@@ -6,7 +6,7 @@ CREATE TABLE `usuarios` (
   `usuario_id` INT PRIMARY KEY AUTO_INCREMENT,
   `nombre` VARCHAR(100),
   `email` VARCHAR(100) UNIQUE,
-  `contraseña` VARCHAR(255),
+  `contrasena` VARCHAR(255),
   `rol` VARCHAR(50),
   `fecha_creacion` DATETIME DEFAULT (CURRENT_TIMESTAMP)
 );

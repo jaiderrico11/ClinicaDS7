@@ -1,24 +1,22 @@
-<?php require("../template/header.php"); ?>
+<?php include "../controllers/consultar_usuario.php"; ?>
 
+<?php require("../template/header.php"); ?>
 
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
-            <h1 class="text-center mb-5">Registrar Usuario</h1>
-            <form action="../controllers/procesar_usuarios.php" method="post">
+            <h1 class="text-center mb-5">Actualizar Usuario</h1>
+            <form action="../controllers/procesar_actualizar_usuario.php" method="post">
+                <input type="hidden" required id="usuario_id" name="usuario_id" class="form-control" value="<?php echo htmlspecialchars($usuario["usuario_id"]) ?>">
+
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre Completo</label>
-                    <input type="text" required id="nombre" name="nombre" class="form-control">
+                    <input type="text" required id="nombre" name="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario["nombre"]) ?>">
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" required id="email" name="email" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label for="contrasena" class="form-label">Contraseña</label>
-                    <input type="password" required id="contrasena" name="contrasena" class="form-control">
+                    <input type="email" required id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($usuario["email"]) ?>">
                 </div>
 
                 <div class="mb-3">
@@ -36,15 +34,22 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="../views/admin_inicio.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+                    <a href="./lista_usuarios.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
                 </div>
 
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-primary">Registrar usuario</button>
+                    <button type="submit" class="btn btn-primary">Actualizar usuario</button>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
+<script>
+    var rol = "<?php echo htmlspecialchars($usuario["rol"]) ?>";
+
+    var select_rol = document.getElementById('rol');
+
+    select_rol.value = rol;
+</script>
 <?php require("../template/footer.php"); ?>

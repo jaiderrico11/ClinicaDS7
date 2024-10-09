@@ -50,4 +50,32 @@ class Usuarios
         }
         return false;
     }
+
+    public function actualizar_usuarios()
+    {
+        $query = "UPDATE " . $this->table_name . " 
+        SET nombre = :nombre, email = :email, rol = :rol 
+        WHERE usuario_id = :usuario_id";
+
+        $stmt = $this->conn->prepare($query);
+
+        // Enlazar parámetros
+        $stmt->bindParam(":usuario_id", $this->usuario_id);
+        $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":rol", $this->rol);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function eliminar_usuarios()
+    {
+        $sql = "DELETE FROM " . $this->table_name . " WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':usuario_id', $this->usuario_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

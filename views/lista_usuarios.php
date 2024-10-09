@@ -17,7 +17,7 @@ if ($result === false) {
 
 <?php require("../template/header.php"); ?>
 
-<a href="../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="../views/admin_inicio.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <section class="container mt-2">
     <h2>Lista de Usuarios</h2>
@@ -41,8 +41,8 @@ if ($result === false) {
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["rol"]); ?></td>
                             <td>
-                                <a href="#" class="btn btn-primary">Actualizar</a>
-                                <a href="#" class="btn btn-danger">Eliminar</a>
+                                <a href="./actualizar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-primary">Actualizar</a>
+                                <a href="./eliminar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
