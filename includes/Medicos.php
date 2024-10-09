@@ -1,0 +1,107 @@
+<?php
+
+class Medicos
+{
+    private $conn; // Conexión a la base de datos
+    private $table_name = "medicos"; // Nombre de la tabla
+
+    // Propiedades de la clase
+    public $medico_id;
+    public $usuario_id;
+    public $especialidad;
+    public $no_licencia_medica;
+    public $anio_experiencia;
+    public $institucion;
+    public $fecha_registro;
+
+    // Constructor que recibe la conexión a la base de datos
+    public function __construct($db)
+    {
+        $this->conn = $db;
+    }
+
+    // Método para registrar un nuevo médico
+    public function registrar_medico()
+{
+    $query = "INSERT INTO medicos (usuario_id, especialidad, no_licencia_medica, anio_experiencia, institucion, fecha_registro) 
+              VALUES (:usuario_id, :especialidad, :no_licencia_medica, :anio_experiencia, :institucion, NOW())";
+              
+    $stmt = $this->conn->prepare($query);
+
+    // Limpiar los datos
+    $this->usuario_id = htmlspecialchars(strip_tags($this->usuario_id));
+    $this->especialidad = htmlspecialchars(strip_tags($this->especialidad));
+    $this->no_licencia_medica = htmlspecialchars(strip_tags($this->no_licencia_medica));
+    $this->anio_experiencia = htmlspecialchars(strip_tags($this->anio_experiencia));
+    $this->institucion = htmlspecialchars(strip_tags($this->institucion));
+
+    // Vincular parámetros
+    $stmt->bindParam(':usuario_id', $this->usuario_id);
+    $stmt->bindParam(':especialidad', $this->especialidad);
+    $stmt->bindParam(':no_licencia_medica', $this->no_licencia_medica);
+    $stmt->bindParam(':anio_experiencia', $this->anio_experiencia);
+    $stmt->bindParam(':institucion', $this->institucion);
+
+    if ($stmt->execute()) {
+        return true;
+    }
+    return false;
+}
+
+
+    // Método para consultar la lista de médicos
+    public function consultar_medicos()
+    {
+        $query = "SELECT * FROM " . $this->table_name;
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+    public function consultar_medico_por_usuario_id($usuario_id)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":usuario_id", $usuario_id);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+    public function obtener_medico_por_id($usuario_id) {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE usuario_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $usuario_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Actualizar médico
+    public function actualizar_medico($usuario_id, $especialidad, $no_licencia_medica, $anio_experiencia, $institucion) {
+        $query = "UPDATE " . $this->table_name . " 
+                SET especialidad = :especialidad, no_licencia_medica = :no_licencia_medica, anio_experiencia = :anio_experiencia, institucion = :institucion
+                WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($query);
+
+        // Bind de los parámetros
+        $stmt->bindParam(':especialidad', $especialidad);
+        $stmt->bindParam(':no_licencia_medica', $no_licencia_medica);
+        $stmt->bindParam(':anio_experiencia', $anio_experiencia);
+        $stmt->bindParam(':institucion', $institucion);
+        $stmt->bindParam(':usuario_id', $usuario_id);
+
+        return $stmt->execute();
+    }
+
+    // Eliminar médico
+    public function eliminar_medico($usuario_id) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE usuario_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $usuario_id);
+        return $stmt->execute();
+    }
+}

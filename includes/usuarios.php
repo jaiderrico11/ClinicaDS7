@@ -68,6 +68,15 @@ class Usuarios
         if ($stmt->execute()) {
             return true;
         }
+    }
+    public function consultar_medicos_por_rol()
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE rol = 'medico'";
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
         return false;
     }
 
@@ -78,4 +87,5 @@ class Usuarios
         $stmt->bindParam(':usuario_id', $this->usuario_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+    
 }
