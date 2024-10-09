@@ -87,5 +87,16 @@ class Usuarios
         $stmt->bindParam(':usuario_id', $this->usuario_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-    
+    public function consultar_usuario_por_email($email)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":email", $email);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+
 }
