@@ -17,10 +17,15 @@ if ($result === false) {
 
 <?php require("../template/header.php"); ?>
 
-<a href="../views/admin_inicio.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<section class="container">
+    <div class="d-flex justify-content-start my-3">
+        <a href="../views/admin_inicio.php" class="btn btn-secondary">Regresar</a>
+    </div>
 
-<section class="container mt-2">
-    <h2>Lista de Usuarios</h2>
+    <div>
+        <h2 class="text-center mb-4" >Lista de Usuarios</h2>
+    </div>
+
     <?php if (isset($result) && !empty($result)) : ?>
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">

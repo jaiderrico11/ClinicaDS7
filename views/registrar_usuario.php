@@ -1,6 +1,5 @@
 <?php require("../template/header.php"); ?>
 
-
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
