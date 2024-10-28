@@ -5,10 +5,10 @@
       <h4>Clínica</h4>
     </div>
     <ul class="list-unstyled">
-      
+
       <!-- Gestión Administrativa -->
       <li>
-        <a href="#adminSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión Administrativa</a>
+        <span href="#adminSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión Administrativa</span>
         <ul class="collapse list-unstyled" id="adminSubmenu">
           <li><a href="../views/registrar_usuario.php">Registrar Usuario</a></li>
           <li><a href="../views/lista_usuarios.php">Ver todos los usuarios</a></li>
@@ -19,7 +19,7 @@
 
       <!-- Gestión de Recursos Humanos -->
       <li>
-        <a href="#hrSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Recursos Humanos</a>
+        <span href="#hrSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Recursos Humanos</span>
         <ul class="collapse list-unstyled" id="hrSubmenu">
           <li><a href="./registrar_medico.php">Registro/Verificación de perfil médico</a></li>
           <li><a href="#">Gestión de turnos y asignación de personal</a></li>
@@ -28,7 +28,7 @@
 
       <!-- Gestión de Recepción -->
       <li>
-        <a href="#receptionSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Recepción</a>
+        <span href="#receptionSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Recepción</span>
         <ul class="collapse list-unstyled" id="receptionSubmenu">
           <li><a href="./registrar_paciente.php">Registro de pacientes</a></li>
           <li><a href="#">Registro de pago de consultas</a></li>
@@ -38,7 +38,7 @@
 
       <!-- Gestión de Médicos -->
       <li>
-        <a href="#doctorSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Médicos</a>
+        <span href="#doctorSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Médicos</span>
         <ul class="collapse list-unstyled" id="doctorSubmenu">
           <li><a href="#">Lista de pacientes</a></li>
           <li><a href="#">Consultar resultados de análisis médicos</a></li>
@@ -48,7 +48,7 @@
 
       <!-- Farmacia -->
       <li>
-        <a href="#pharmacySubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Farmacia</a>
+        <span href="#pharmacySubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Farmacia</span>
         <ul class="collapse list-unstyled" id="pharmacySubmenu">
           <li><a href="#">Consultar disponibilidad de medicamento</a></li>
           <li><a href="#">Suministrar medicamentos</a></li>
@@ -58,7 +58,7 @@
 
       <!-- Gestión de Pacientes -->
       <li>
-        <a href="#patientSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Pacientes</a>
+        <span href="#patientSubmenu" data-bs-toggle="collapse" class="dropdown-toggle">Gestión de Pacientes</span>
         <ul class="collapse list-unstyled" id="patientSubmenu">
           <li><a href="#">Solicitar consulta médica</a></li>
           <li><a href="#">Acceder a resultados médicos</a></li>
@@ -70,13 +70,8 @@
     </ul>
   </nav>
 
-  <!-- Main content -->
+  <!-- Main content 
   <div class="p-4" id="content">
     <h2>Contenido Principal</h2>
     <p>Aquidebe ir el contenido dentro del id content en este div el cual esta dentro del div de flex primero del nav</p>
-  </div>
-</div>
-
-<!-- Bootstrap CSS y JS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </div>-->
