@@ -25,7 +25,8 @@ CREATE TABLE `pacientes` (
   `telefono` VARCHAR(15),
   `email` VARCHAR(100) UNIQUE,
   `direccion` VARCHAR(255),
-  `fecha_registro` DATETIME DEFAULT (CURRENT_TIMESTAMP)
+  `fecha_registro` DATETIME DEFAULT (CURRENT_TIMESTAMP),
+  `contrasena` VARCHAR(100)
 );
 
 CREATE TABLE `citas` (
