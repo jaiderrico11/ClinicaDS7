@@ -20,6 +20,7 @@ CREATE TABLE `servicios_medicos` (
 CREATE TABLE `pacientes` (
   `paciente_id` INT PRIMARY KEY AUTO_INCREMENT,
   `nombre` VARCHAR(100),
+  `cedula` VARCHAR(50),
   `fecha_nacimiento` DATE,
   `genero` VARCHAR(10),
   `telefono` VARCHAR(15),

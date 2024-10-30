@@ -22,31 +22,31 @@ class Medicos
 
     // Método para registrar un nuevo médico
     public function registrar_medico()
-{
-    $query = "INSERT INTO medicos (usuario_id, especialidad, no_licencia_medica, anio_experiencia, institucion, fecha_registro) 
+    {
+        $query = "INSERT INTO medicos (usuario_id, especialidad, no_licencia_medica, anio_experiencia, institucion, fecha_registro) 
               VALUES (:usuario_id, :especialidad, :no_licencia_medica, :anio_experiencia, :institucion, NOW())";
-              
-    $stmt = $this->conn->prepare($query);
 
-    // Limpiar los datos
-    $this->usuario_id = htmlspecialchars(strip_tags($this->usuario_id));
-    $this->especialidad = htmlspecialchars(strip_tags($this->especialidad));
-    $this->no_licencia_medica = htmlspecialchars(strip_tags($this->no_licencia_medica));
-    $this->anio_experiencia = htmlspecialchars(strip_tags($this->anio_experiencia));
-    $this->institucion = htmlspecialchars(strip_tags($this->institucion));
+        $stmt = $this->conn->prepare($query);
 
-    // Vincular parámetros
-    $stmt->bindParam(':usuario_id', $this->usuario_id);
-    $stmt->bindParam(':especialidad', $this->especialidad);
-    $stmt->bindParam(':no_licencia_medica', $this->no_licencia_medica);
-    $stmt->bindParam(':anio_experiencia', $this->anio_experiencia);
-    $stmt->bindParam(':institucion', $this->institucion);
+        // Limpiar los datos
+        $this->usuario_id = htmlspecialchars(strip_tags($this->usuario_id));
+        $this->especialidad = htmlspecialchars(strip_tags($this->especialidad));
+        $this->no_licencia_medica = htmlspecialchars(strip_tags($this->no_licencia_medica));
+        $this->anio_experiencia = htmlspecialchars(strip_tags($this->anio_experiencia));
+        $this->institucion = htmlspecialchars(strip_tags($this->institucion));
 
-    if ($stmt->execute()) {
-        return true;
+        // Vincular parámetros
+        $stmt->bindParam(':usuario_id', $this->usuario_id);
+        $stmt->bindParam(':especialidad', $this->especialidad);
+        $stmt->bindParam(':no_licencia_medica', $this->no_licencia_medica);
+        $stmt->bindParam(':anio_experiencia', $this->anio_experiencia);
+        $stmt->bindParam(':institucion', $this->institucion);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 
 
     // Método para consultar la lista de médicos
@@ -72,7 +72,20 @@ class Medicos
         }
         return false;
     }
-    public function obtener_medico_por_id($usuario_id) {
+    public function consultar_medico_por_servicio_id($servicio_id)
+    {
+        $query = "SELECT medicos.medico_id, usuarios.nombre FROM " . $this->table_name . " JOIN usuarios ON usuarios.usuario_id = medicos.usuario_id WHERE medicos.especialidad LIKE :servicio_id";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":servicio_id", $servicio_id);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        }
+        return false;
+    }
+    public function obtener_medico_por_id($usuario_id)
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE usuario_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $usuario_id);
@@ -81,7 +94,8 @@ class Medicos
     }
 
     // Actualizar médico
-    public function actualizar_medico($usuario_id, $especialidad, $no_licencia_medica, $anio_experiencia, $institucion) {
+    public function actualizar_medico($usuario_id, $especialidad, $no_licencia_medica, $anio_experiencia, $institucion)
+    {
         $query = "UPDATE " . $this->table_name . " 
                 SET especialidad = :especialidad, no_licencia_medica = :no_licencia_medica, anio_experiencia = :anio_experiencia, institucion = :institucion
                 WHERE usuario_id = :usuario_id";
@@ -98,7 +112,8 @@ class Medicos
     }
 
     // Eliminar médico
-    public function eliminar_medico($usuario_id) {
+    public function eliminar_medico($usuario_id)
+    {
         $query = "DELETE FROM " . $this->table_name . " WHERE usuario_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $usuario_id);

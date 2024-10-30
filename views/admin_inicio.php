@@ -1,8 +1,8 @@
 <?php require("../template/header.php") ?>
 
-<a href="../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
 <?php require("../template/sidebar.php") ?>
 <div class="p-4" id="content">
+    <a href="../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
     <!-- Contenido principal -->
     <section class="container">
         <h1 class="text-center">Bienvenido a la Clínica</h1>

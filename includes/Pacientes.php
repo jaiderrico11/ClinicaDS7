@@ -36,7 +36,7 @@ class Pacientes
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->direccion = htmlspecialchars(strip_tags($this->direccion));
         $this->contrasena = htmlspecialchars(strip_tags($this->contrasena));
-        
+
 
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":cedula", $this->cedula);
@@ -61,6 +61,19 @@ class Pacientes
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+
+    public function consultar_paciente_por_email($email)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":email", $email);
+
+        if ($stmt->execute()) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : false;
         }
         return false;
     }
