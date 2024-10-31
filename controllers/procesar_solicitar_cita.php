@@ -2,6 +2,8 @@
 include "../includes/Database.php";
 include "../includes/Citas.php";
 
+session_start();
+
 // Crear una instancia de la clase Database y obtener la conexión
 $database = new Database();
 $db = $database->getConnection();
@@ -34,7 +36,7 @@ if ($citas->solicitar_cita()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/lista_medicos.php";//redirigir a inicio de la vista del paciente
+        window.location.href = "../views/inicio_paciente.php";
     }, 5000);
 </script>
 

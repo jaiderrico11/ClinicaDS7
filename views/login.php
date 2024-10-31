@@ -9,7 +9,7 @@
                     <label for="email" class="form-label">Email</label>
                     <input type="email" required id="email" name="email" class="form-control">
                 </div>
-
+                
                 <div class="mb-3">
                     <label for="contrasena" class="form-label">Contraseña</label>
                     <input type="password" required id="contrasena" name="contrasena" class="form-control">

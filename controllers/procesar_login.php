@@ -18,9 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificar credenciales
     $usuario = $usuarios->consultar_usuario_por_email($email);
     $paciente = $paciente->consultar_paciente_por_email($email);
-
-    var_dump("Usuario:", $usuario);
-    var_dump("Paciente:", $paciente);
+    
     if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
         // Credenciales válidas
         $_SESSION['usuario_id'] = $usuario['usuario_id'];
@@ -28,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['rol'] = $usuario['rol'];
 
         // Redirigir según el rol
-        if ($usuario['rol'] == 'Administrador') {
+        if ($usuario['rol'] == 'admin') {
             header("Location: ../views/admin_inicio.php"); // Redirigir a la pantalla de administrador
         } else if ($usuario['rol'] == 'Recursos Humanos') {
             header("Location: ../views/inicio_recursos_humanos.php");
