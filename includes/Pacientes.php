@@ -25,27 +25,27 @@ class Pacientes
 
     public function registrar_pacientes()
     {
-        $query = "INSERT INTO " . $this->table_name . " (nombre, cedula, fecha_nacimiento, genero, telefono, email, direccion, contrasena) VALUES(:nombre, :cedula, :fecha_nacimiento, :genero, :telefono, :email, :direccion, :contrasena)";
+        $query = "CALL RegistrarPaciente(:nombre, :email, :contrasena, :cedula, :fecha_nacimiento, :genero, :telefono, :direccion)";
         $stmt = $this->conn->prepare($query);
 
         $this->nombre = htmlspecialchars(strip_tags($this->nombre));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->contrasena = htmlspecialchars(strip_tags($this->contrasena));
         $this->cedula = htmlspecialchars(strip_tags($this->cedula));
         $this->fecha_nacimiento = htmlspecialchars(strip_tags($this->fecha_nacimiento));
         $this->genero = htmlspecialchars(strip_tags($this->genero));
         $this->telefono = htmlspecialchars(strip_tags($this->telefono));
-        $this->email = htmlspecialchars(strip_tags($this->email));
         $this->direccion = htmlspecialchars(strip_tags($this->direccion));
-        $this->contrasena = htmlspecialchars(strip_tags($this->contrasena));
 
 
         $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":contrasena", $this->contrasena);
         $stmt->bindParam(":cedula", $this->cedula);
         $stmt->bindParam(":fecha_nacimiento", $this->fecha_nacimiento);
         $stmt->bindParam(":genero", $this->genero);
         $stmt->bindParam(":telefono", $this->telefono);
-        $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":direccion", $this->direccion);
-        $stmt->bindParam(":contrasena", $this->contrasena);
 
         // Ejecutar la declaración
         if ($stmt->execute()) {
@@ -61,19 +61,6 @@ class Pacientes
 
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        return false;
-    }
-
-    public function consultar_paciente_por_email($email)
-    {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":email", $email);
-
-        if ($stmt->execute()) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : false;
         }
         return false;
     }
