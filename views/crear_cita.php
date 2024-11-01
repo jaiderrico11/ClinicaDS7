@@ -16,18 +16,26 @@ $nombre = htmlspecialchars($_GET["nombre"]);
 
                 <div class="mb-3">
                     <label for="servicio" class="form-label">Servicio</label>
-                    <select required name="servicio" id="servicio" class="form-select">
+                    <select disabled name="servicio" id="servicio" class="form-select">
                         <option value="" selected disabled>Seleccione un servicio</option>
                         <?php
                         require_once "../includes/Database.php";
                         // Crear una instancia de la clase Database y obtener la conexión
                         $database = new Database();
                         $db = $database->getConnection();
+                        // Obtener el servicio_id de la cita
+                        $query = $db->prepare("SELECT servicio_id FROM citas WHERE cita_id = :cita_id");
+                        $query->bindParam(':cita_id', $cita_id, PDO::PARAM_INT);
+                        $query->execute();
+                        $servicio = $query->fetch(PDO::FETCH_ASSOC);
 
+                        // Asegurarse de que servicio_id se obtuvo correctamente
+                        $servicio_id = $servicio ? $servicio['servicio_id'] : null;
                         $stmt = $db->query("SELECT * FROM servicios_medicos");
 
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value='" . $row['servicio_id'] . "'>" . htmlspecialchars($row['nombre_servicio']) . "</option>";
+                            $selected = ($row["servicio_id"] == $servicio_id) ? "selected" : "";
+                            echo "<option value='" . $row['servicio_id'] . "' $selected>" . htmlspecialchars($row['nombre_servicio']) . "</option>";
                         }
                         ?>
                     </select>

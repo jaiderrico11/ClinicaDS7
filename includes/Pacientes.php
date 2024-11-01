@@ -64,4 +64,17 @@ class Pacientes
         }
         return false;
     }
+
+    public function obtener_id_paciente($usuario_id)
+    {
+        $query = "SELECT paciente_id FROM pacientes WHERE usuario_id = :usuario_id";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":usuario_id", $usuario_id);
+
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
 }

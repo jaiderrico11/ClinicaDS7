@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Verificar credenciales
     $usuario = $usuarios->consultar_usuario_por_email($email);
-    
+
     if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
         // Credenciales válidas
         $_SESSION['usuario_id'] = $usuario['usuario_id'];

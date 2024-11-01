@@ -71,7 +71,7 @@ class Usuarios
     }
     public function consultar_medicos_por_rol()
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE rol = 'medico'";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE rol = 'Médico'";
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {

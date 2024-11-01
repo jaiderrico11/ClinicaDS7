@@ -1,6 +1,7 @@
 <?php
 include "../includes/Database.php";
 include "../includes/Citas.php";
+include "../includes/Pacientes.php";
 
 session_start();
 
@@ -9,8 +10,10 @@ $database = new Database();
 $db = $database->getConnection();
 
 $citas = new Citas($db);
+$pacientes = new Pacientes($db);
 
-$citas->paciente_id = $_SESSION['paciente_id'];
+$result = $pacientes->obtener_id_paciente($_SESSION["usuario_id"]);
+$citas->paciente_id = $result["paciente_id"];
 $citas->servicio_id = $_POST["servicio"];
 
 // Registrar la solicitud de cita

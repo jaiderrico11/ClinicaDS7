@@ -22,13 +22,7 @@ class Citas
 
     public function consultar_citas()
     {
-        $query = "SELECT citas.cita_id,
-                        pacientes.paciente_id,
-                        pacientes.nombre AS Paciente,
-                        servicios_medicos.nombre_servicio AS Servicio
-                FROM " . $this->table_name .
-            " LEFT JOIN pacientes ON pacientes.paciente_id = " . $this->table_name . ".paciente_id " .
-            "LEFT JOIN servicios_medicos ON servicios_medicos.servicio_id = " . $this->table_name . ".servicio_id WHERE estado NOT LIKE 'Agendado'";
+        $query = "Call ConsultarCitas()";
 
         $stmt = $this->conn->prepare($query);
 
