@@ -9,9 +9,9 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <p class="card-text">Ajusta las configuraciones globales.</p>
-                        <a href="./registrar_paciente.php" class="btn btn-primary mb-3">Lista de pacientes</a>
+                        <a href="./lista_pacientes.php" class="btn btn-primary mb-3">Lista de pacientes</a>
                         <a href="#" class="btn btn-primary mb-3">Consultar resultados de análisis médicos</a>
-                        <a href="./gestion_citas.php" class="btn btn-primary mb-3">Consultar citas del día</a>
+                        <a href="./consultar_citas_del_dia.php" class="btn btn-primary mb-3">Consultar citas del día</a>
                     </div>
                 </div>
             </div>

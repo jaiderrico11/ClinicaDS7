@@ -119,4 +119,23 @@ class Medicos
         $stmt->bindParam(1, $usuario_id);
         return $stmt->execute();
     }
+
+    public function consultar_pacientes()
+    {
+        $query = "SELECT DISTINCT 
+                    pacientes.cedula AS Cedula,
+                    usuarios.nombre AS Paciente,
+                    pacientes.fecha_nacimiento AS Fecha_Nacimiento,
+                    pacientes.genero AS Genero,
+                    pacientes.telefono AS Telefono,
+                    pacientes.direccion AS Direccion 
+                    FROM citas 
+                    LEFT JOIN pacientes ON pacientes.paciente_id = citas.paciente_id
+                    LEFT JOIN usuarios ON usuarios.usuario_id = pacientes.usuario_id
+                    WHERE citas.medico_id = :medico_id" ;
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':medico_id',$this->medico_id);
+        $stmt->execute();
+        return  $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

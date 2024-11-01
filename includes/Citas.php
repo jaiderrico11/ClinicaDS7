@@ -68,5 +68,27 @@ class Citas
         return $stmt->execute();
     }
 
+    public function consultar_citas_del_dia()
+    {
+        $query = "Call Consultar_Citas_Del_Dia(:medico_id)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':medico_id', $this->medico_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Obtener los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);  
+    }
+
+    public function consultar_proximas_citas()
+    {
+        $query = "Call Consultar_Proximas_Citas(:medico_id)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':medico_id', $this->medico_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Obtener los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);  
+    }
+
     public function cancelar_cita() {}
 }
