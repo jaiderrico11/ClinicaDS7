@@ -40,7 +40,7 @@ if ($result === false) {
                                     <td><?php echo htmlspecialchars($row["Paciente"]); ?></td>
                                     <td><?php echo htmlspecialchars($row["hora"]); ?></td>
                                     <td>
-                                        <a href="./crear_cita.php" class="btn btn-primary">Atender</a>
+                                        <a href="./atender_paciente.php?paciente_id=<?php echo htmlspecialchars($row["paciente_id"]); ?>" class="btn btn-primary">Atender</a>
                                         <a href="./crear_cita.php" class="btn btn-primary">Reagendar</a>
                                     </td>
                                 </tr>

@@ -91,4 +91,21 @@ class Citas
     }
 
     public function cancelar_cita() {}
+
+    // Ejemplo de función
+    public function consultar_paciente_por_id($paciente_id) {
+        $query = "
+            SELECT p.*, u.nombre 
+            FROM pacientes p
+            JOIN usuarios u ON p.usuario_id = u.usuario_id 
+            WHERE p.paciente_id = :paciente_id
+        "; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':paciente_id', $paciente_id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+
+    
 }
