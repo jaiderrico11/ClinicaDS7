@@ -12,6 +12,7 @@
                     <p class="card-text">Ajusta las configuraciones globales.</p>
                     <a href="./registrar_paciente.php" class="btn btn-warning mb-3">Registro de pacientes</a>
                     <a href="#" class="btn btn-warning mb-3">Registro de pago de consultas</a>
+                    <a href="./consultar_disponibilidad_medico.php" class="btn btn-warning mb-3">Consultar Disponibilidad de Medicos</a>
                     <a href="./gestion_citas.php" class="btn btn-warning mb-3">Creación/Modificación/Cancelación de Citas</a>
                 </div>
             </div>

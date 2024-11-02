@@ -81,45 +81,6 @@ require("../template/header.php");
                     <input type="text" id="direccion" name="direccion" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['direccion']); ?>">
                 </div>
 
-                <!-- Motivo de la Consulta -->
-                <h3 class="mt-4">Motivo de la Consulta</h3>
-                <div class="form-group">
-                    <label for="motivo">Motivo de la Visita:</label>
-                    <textarea id="motivo" name="motivo" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="sintomas">Síntomas:</label>
-                    <input type="text" id="sintomas" name="sintomas" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="duracion">Duración de los Síntomas:</label>
-                    <input type="text" id="duracion" name="duracion" class="form-control">
-                </div>
-
-                <!-- Signos Vitales -->
-                <h3 class="mt-4">Signos Vitales</h3>
-                <div class="form-group">
-                    <label for="temperatura">Temperatura (°C):</label>
-                    <input type="text" id="temperatura" name="temperatura" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="presion">Presión Arterial:</label>
-                    <input type="text" id="presion" name="presion" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="frecuencia_cardiaca">Frecuencia Cardiaca:</label>
-                    <input type="text" id="frecuencia_cardiaca" name="frecuencia_cardiaca" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="frecuencia_respiratoria">Frecuencia Respiratoria:</label>
-                    <input type="text" id="frecuencia_respiratoria" name="frecuencia_respiratoria" class="form-control">
-                </div>
-
                 <!-- Diagnóstico -->
                 <h3 class="mt-4">Diagnóstico</h3>
                 <div class="form-group">
@@ -164,11 +125,6 @@ require("../template/header.php");
 
                 <!-- Seguimiento -->
                 <h3 class="mt-4">Seguimiento</h3>
-                <div class="form-group">
-                    <label for="notas">Notas del Médico:</label>
-                    <textarea id="notas" name="notas" class="form-control"></textarea>
-                </div>
-
                 <div class="form-group">
                     <label for="fecha_proxima">Fecha de Próxima Cita:</label>
                     <input type="date" id="fecha_proxima" name="fecha_proxima" class="form-control">
