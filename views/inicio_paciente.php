@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <a href="./solicitar_cita.php" class="btn btn-warning mb-3">Solicitar cita médica</a>
                     <a href="#" class="btn btn-warning mb-3">Registro de pago de consultas</a>
-                    <a href="./gestion_citas.php" class="btn btn-warning mb-3">Creación/Modificación/Cancelación de Citas</a>
+                    <a href="./realizar_pago.php" class="btn btn-warning mb-3">Realizar Pagos</a>
                 </div>
             </div>
         </div>

@@ -105,7 +105,33 @@ class Citas
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function obtener_paciente_id_por_usuario($usuario_id) {
+        $query = "SELECT paciente_id FROM pacientes WHERE usuario_id = :usuario_id";
     
-
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':usuario_id', $usuario_id);
+        $stmt->execute();
     
+        return $stmt->fetchColumn(); // Devuelve el paciente_id o false si no se encuentra
+    }
+    // Método para consultar citas atendidas por paciente
+    public function consultar_citas_atendidas_por_paciente($paciente_id) {
+        $query = "SELECT c.cita_id, c.fecha, c.hora, s.costo 
+                  FROM citas c 
+                  INNER JOIN servicios_medicos s ON c.servicio_id = s.servicio_id 
+                  WHERE c.paciente_id = :paciente_id AND c.estado = 'Atendido'";
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':paciente_id', $paciente_id);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function actualizar_estado_cita($cita_id, $nuevo_estado) {
+        $query = "UPDATE citas SET estado = ? WHERE cita_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("si", $nuevo_estado, $cita_id);
+    
+        return $stmt->execute(); // Devuelve verdadero si se actualizó correctamente
+    }    
 }

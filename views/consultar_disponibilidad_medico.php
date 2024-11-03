@@ -10,7 +10,7 @@ $medicos = new Medicos($db);
 $lista_medicos = $medicos->consultar_medicos_disponibles();
 ?>
 
-<a href="../views/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="./inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <!-- Contenido principal -->
 <section class="container mt-5">
