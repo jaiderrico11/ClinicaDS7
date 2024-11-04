@@ -1,7 +1,7 @@
 <?php
 // Incluir archivos de conexión y clase Usuario
-include '../includes/Database.php';
-include '../includes/Usuarios.php';
+include '../../includes/Database.php';
+include '../../includes/Usuarios.php';
 
 // Crear una instancia de la clase Database y obtener la conexión
 $database = new Database();

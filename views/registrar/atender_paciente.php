@@ -1,6 +1,6 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Citas.php";
+include "../../includes/Database.php";
+include "../../includes/Citas.php";
 session_start();
 
 $database = new Database();
@@ -35,14 +35,14 @@ if (isset($_SESSION['error_message'])) {
     unset($_SESSION['error_message']); // Limpiar el mensaje después de mostrarlo
 }
 
-require("../template/header.php");
+require("../../template/header.php");
 ?>
 
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-12 col-md-8">
             <h2 class="text-center">Formulario de Atención al Paciente</h2>
-            <form action="../controllers/procesar_atencion.php" method="POST" class="form">
+            <form action="../../controllers/procesar_atencion.php" method="POST" class="form">
 
                 <!-- Datos Básicos del Paciente -->
                 <h3 class="mt-4">Datos Básicos del Paciente</h3>
@@ -50,7 +50,7 @@ require("../template/header.php");
                     <label for="paciente_id">ID del Paciente:</label>
                     <input type="text" id="paciente_id" name="paciente_id" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['paciente_id']); ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="nombre">Nombre Completo:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['nombre']); ?>">
@@ -65,7 +65,7 @@ require("../template/header.php");
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                     <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['fecha_nacimiento']); ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="genero">Género:</label>
                     <input type="text" id="genero" name="genero" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['genero']); ?>">
@@ -136,4 +136,4 @@ require("../template/header.php");
     </div>
 </section>
 
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

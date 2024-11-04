@@ -1,6 +1,6 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Citas.php";
+include "../../includes/Database.php";
+include "../../includes/Citas.php";
 
 $database = new Database();
 $db = $database->getConnection();
@@ -15,7 +15,7 @@ if ($result === false) {
 }
 ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
     <section class="container">
         <div class="row d-flex justify-content-center align-items-center min-vh-100">
             <?php if (isset($result) && !empty($result)) : ?>
@@ -34,7 +34,7 @@ if ($result === false) {
                                     <td><?php echo htmlspecialchars($row["Paciente"]); ?></td>
                                     <td><?php echo htmlspecialchars($row["Servicio"]); ?></td>
                                     <td>
-                                        <a href="./crear_cita.php?nombre=<?php echo htmlspecialchars($row["Paciente"]); ?>&cita_id=<?php echo htmlspecialchars($row["cita_id"]); ?>" class="btn btn-primary">Procesar</a>
+                                        <a href="../registrar/crear_cita.php?nombre=<?php echo htmlspecialchars($row["Paciente"]); ?>&cita_id=<?php echo htmlspecialchars($row["cita_id"]); ?>" class="btn btn-primary">Procesar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -49,4 +49,4 @@ if ($result === false) {
         </div>
     </section>
 
-    <?php require("../template/footer.php"); ?>
+    <?php require("../../template/footer.php"); ?>

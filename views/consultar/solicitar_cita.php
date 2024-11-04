@@ -1,12 +1,12 @@
-<?php require("../template/header.php") ?>
+<?php require("../../template/header.php") ?>
 
 <section class="container">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <form action="../controllers/procesar_solicitar_cita.php" method="post">
+        <form action="../../controllers/procesar_solicitar_cita.php" method="post">
             <select required name="servicio" id="servicio" class="form-select">
                 <option value="" selected disabled>Seleccione un servicio</option>
                 <?php
-                require_once "../includes/Database.php";
+                require_once "../../includes/Database.php";
                 // Crear una instancia de la clase Database y obtener la conexión
                 $database = new Database();
                 $db = $database->getConnection();
@@ -26,4 +26,4 @@
     </div>
 </section>
 
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>

@@ -1,6 +1,6 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Medicos.php";
+include "../../includes/Database.php";
+include "../../includes/Medicos.php";
 session_start();
 
 $database = new Database();
@@ -18,12 +18,12 @@ if ($result === false) {
 }
 ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
     <section class="container">
         <div class="row d-flex justify-content-center align-items-center min-vh-90">
             <?php if (isset($result) && !empty($result)) : ?>
                 <div class="table-responsive">
-                <h1 class="text-center">Citas del dia</h1>
+                <h1 class="text-center">Lista de Pacientes</h1>
                     <table class="table table-striped table-bordered table-hover">
                         <thead class="table-light">
                             <tr>
@@ -59,4 +59,4 @@ if ($result === false) {
 
     
 
-    <?php require("../template/footer.php"); ?>
+    <?php require("../../template/footer.php"); ?>

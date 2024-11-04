@@ -1,7 +1,7 @@
 <?php
 // Incluimos las dependencias necesarias
-require("../includes/Database.php");
-require("../includes/Usuarios.php");
+require("../../includes/Database.php");
+require("../../includes/Usuarios.php");
 
 // Conexión a la base de datos
 $database = new Database();
@@ -13,11 +13,11 @@ $medicos = $usuarios->consultar_medicos_por_rol(); // Obtener los usuarios con r
 
 ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
 <?php if (isset($_GET['message'])): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($_GET['message']); ?></div>
-    <?php endif; ?>
-<a href="../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+    <div class="alert alert-success"><?php echo htmlspecialchars($_GET['message']); ?></div>
+<?php endif; ?>
+<a href="../../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <section class="container mt-2">
     <h2>Lista de Médicos Registrados</h2>
@@ -39,8 +39,8 @@ $medicos = $usuarios->consultar_medicos_por_rol(); // Obtener los usuarios con r
                             <td><?php echo htmlspecialchars($medico['nombre']); ?></td>
                             <td><?php echo htmlspecialchars($medico['email']); ?></td>
                             <td>
-                                <a href="actualizar_medico.php?id=<?php echo $medico['usuario_id']; ?>" class="btn btn-primary">Actualizar</a>
-                                <a href="eliminar_medico.php?id=<?php echo $medico['usuario_id']; ?>" class="btn btn-danger">Eliminar</a>
+                                <a href="../actualizar/actualizar_medico.php?id=<?php echo $medico['usuario_id']; ?>" class="btn btn-primary">Actualizar</a>
+                                <a href="../eliminar/eliminar_medico.php?id=<?php echo $medico['usuario_id']; ?>" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -54,4 +54,4 @@ $medicos = $usuarios->consultar_medicos_por_rol(); // Obtener los usuarios con r
     <?php endif; ?>
 </section>
 
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

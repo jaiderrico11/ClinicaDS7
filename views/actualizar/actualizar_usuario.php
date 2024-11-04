@@ -1,12 +1,12 @@
-<?php include "../controllers/consultar_usuario.php"; ?>
+<?php include "../../controllers/consultar_usuario.php"; ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
 
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
             <h1 class="text-center mb-5">Actualizar Usuario</h1>
-            <form action="../controllers/procesar_actualizar_usuario.php" method="post">
+            <form action="../../controllers/procesar_actualizar_usuario.php" method="post">
                 <input type="hidden" required id="usuario_id" name="usuario_id" class="form-control" value="<?php echo htmlspecialchars($usuario["usuario_id"]) ?>">
 
                 <div class="mb-3">
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="./lista_usuarios.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+                    <a href="../listas/lista_usuarios.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
                 </div>
 
                 <div class="text-center mt-2">
@@ -52,4 +52,4 @@
 
     select_rol.value = rol;
 </script>
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

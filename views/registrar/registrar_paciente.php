@@ -1,11 +1,11 @@
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
 
 
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
             <h1 class="text-center mb-5">Registrar Paciente</h1>
-            <form action="../controllers/procesar_pacientes.php" method="post">
+            <form action="../../controllers/procesar_pacientes.php" method="post">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre Completo</label>
                     <input type="text" required id="nombre" name="nombre" class="form-control">
@@ -55,11 +55,11 @@
                 </div>
 
                 <div class="text-center mt-2">
-                    <a href="/views/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+                    <a href="../inicio/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

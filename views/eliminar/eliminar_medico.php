@@ -1,7 +1,7 @@
 <?php
-require("../includes/Database.php");
-require("../includes/Usuarios.php");
-require("../includes/Medicos.php");
+require("../../includes/Database.php");
+require("../../includes/Usuarios.php");
+require("../../includes/Medicos.php");
 
 $database = new Database();
 $db = $database->getConnection();
@@ -30,11 +30,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     }
 
     // Redirigimos a la lista de médicos con un mensaje de confirmación
-    header("Location: lista_medicos.php?message=" . urlencode($message));
+    header("Location: ../listas/lista_medicos.php?message=" . urlencode($message));
     exit();
 } else {
     // Si no se recibe el ID, redirigimos a la lista de médicos
-    header("Location: lista_medicos.php");
+    header("Location: ../listas/lista_medicos.php");
     exit();
 }
 ?>

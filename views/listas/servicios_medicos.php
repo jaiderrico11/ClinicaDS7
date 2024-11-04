@@ -1,7 +1,7 @@
 <?php
-require("../template/header.php");
-include("../includes/Database.php");
-include("../includes/Servicios_Medicos.php");
+require("../../template/header.php");
+include("../../includes/Database.php");
+include("../../includes/Servicios_Medicos.php");
 
 // Crear una instancia de la clase Database y obtener la conexión
 $database = new Database();
@@ -12,12 +12,12 @@ $servicios_medicos = new Servicios_Medicos($db);
 $result = $servicios_medicos->consultar_servicios();
 
 ?>
-<a href="../views/admin_inicio.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="../../views/admin_inicio.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <section class="container">
     <div class="text-center">
         <h1 class="mb-4">Servicios Médicos</h1>
-        <a href="./agregar_servicios.php" class="btn btn-primary">Agregar +</a>
+        <a href="../registrar/agregar_servicios.php" class="btn btn-primary">Agregar +</a>
     </div>
 
     <?php if (isset($result) && !empty($result)) : ?>
@@ -38,4 +38,4 @@ $result = $servicios_medicos->consultar_servicios();
     <?php endif; ?>
 </section>
 
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>

@@ -1,6 +1,7 @@
-<?php require("../template/header.php");
-include("../includes/Database.php");
-include("../includes/Medicos.php");
+<?php
+require("../../template/header.php");
+include("../../includes/Database.php");
+include("../../includes/Medicos.php");
 
 $database = new Database();
 $db = $database->getConnection();
@@ -10,7 +11,7 @@ $medicos = new Medicos($db);
 $lista_medicos = $medicos->consultar_medicos_disponibles();
 ?>
 
-<a href="./inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="../inicio/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <!-- Contenido principal -->
 <section class="container mt-5">
@@ -42,28 +43,30 @@ $lista_medicos = $medicos->consultar_medicos_disponibles();
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    // Llama a la función cargarCitas cuando la página esté lista
-    var medicoId = $('#medico').val(); // Obtiene el valor del médico seleccionado
-    if (medicoId) {
-        cargarCitas(medicoId); // Carga las citas automáticamente
-    }
-});
-
-function cargarCitas(medicoId) {
-    $.ajax({
-        url: '../ajax/get_disponibilidad_medico.php', // Cambia esto al nombre correcto de tu archivo PHP
-        type: 'GET',
-        data: { medico_id: medicoId },
-        success: function(data) {
-            $('#citasContainer').html(data); // Cargar la respuesta en un contenedor
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-            $('#citasContainer').html('<p>Error al cargar las citas.</p>');
+    $(document).ready(function() {
+        // Llama a la función cargarCitas cuando la página esté lista
+        var medicoId = $('#medico').val(); // Obtiene el valor del médico seleccionado
+        if (medicoId) {
+            cargarCitas(medicoId); // Carga las citas automáticamente
         }
     });
-}
+
+    function cargarCitas(medicoId) {
+        $.ajax({
+            url: '../../ajax/get_disponibilidad_medico.php', // Cambia esto al nombre correcto de tu archivo PHP
+            type: 'GET',
+            data: {
+                medico_id: medicoId
+            },
+            success: function(data) {
+                $('#citasContainer').html(data); // Cargar la respuesta en un contenedor
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                $('#citasContainer').html('<p>Error al cargar las citas.</p>');
+            }
+        });
+    }
 </script>
 
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>

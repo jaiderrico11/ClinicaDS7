@@ -1,4 +1,4 @@
-<?php require("../template/header.php");
+<?php require("../../template/header.php");
 $cita_id = htmlspecialchars($_GET["cita_id"]);
 $nombre = htmlspecialchars($_GET["nombre"]);
 ?>
@@ -6,7 +6,7 @@ $nombre = htmlspecialchars($_GET["nombre"]);
 <section class="container">
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
-            <form action="../controllers/procesar_cita.php" method="post">
+            <form action="../../controllers/procesar_cita.php" method="post">
                 <input class="d-none" type="number" id="cita_id" name="cita_id" value="<?php echo $cita_id ?>">
 
                 <div class="mb-3">
@@ -19,7 +19,7 @@ $nombre = htmlspecialchars($_GET["nombre"]);
                     <select disabled name="servicio" id="servicio" class="form-select">
                         <option value="" selected disabled>Seleccione un servicio</option>
                         <?php
-                        require_once "../includes/Database.php";
+                        require_once "../../includes/Database.php";
                         // Crear una instancia de la clase Database y obtener la conexión
                         $database = new Database();
                         $db = $database->getConnection();
@@ -45,6 +45,20 @@ $nombre = htmlspecialchars($_GET["nombre"]);
                     <label for="medico" class="form-label">Médico</label>
                     <select required name="medico" id="medico" class="form-select">
                         <option value="" selected disabled>Seleccione un médico</option>
+                        <?php
+                        require_once "../../includes/Database.php";
+                        require_once "../../includes/Medicos.php";
+                        // Crear una instancia de la clase Database y obtener la conexión
+                        $database = new Database();
+                        $db = $database->getConnection();
+                        $medicos = new Medicos($db);
+                        // Obtener el medico dependiendo del servicio
+                        $stmt = $medicos->consultar_medico_por_servicio_id($servicio_id);
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='" . $row['servicio_id'] . "'>" . htmlspecialchars($row['nombre_servicio']) . "</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -66,31 +80,4 @@ $nombre = htmlspecialchars($_GET["nombre"]);
     </div>
 </section>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#servicio').change(function() {
-            let servicioID = $(this).val();
-
-            if (servicioID) {
-                $.ajax({
-                    type: 'POST',
-                    url: '../ajax/get_medicos.php',
-                    data: {
-                        servicio_id: servicioID
-                    },
-                    success: function(html) {
-                        $('#medico').html(html);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al obtener los servicios:', error);
-                    }
-                });
-            } else {
-                $('#medico').html('<option value="">Seleccione un médico</option>');
-            }
-        });
-    });
-</script>
-
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>

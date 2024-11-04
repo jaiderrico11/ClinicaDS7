@@ -1,7 +1,7 @@
 <?php
-require("../includes/Database.php");
-require("../includes/Usuarios.php");
-require("../includes/Medicos.php");
+require("../../includes/Database.php");
+require("../../includes/Usuarios.php");
+require("../../includes/Medicos.php");
 
 $database = new Database();
 $db = $database->getConnection();
@@ -15,7 +15,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     // Obtenemos los datos actuales del médico
     $medico = $medicos->obtener_medico_por_id($usuario_id);
-    
+
     // Verificamos si se ha enviado el formulario para actualizar
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $especialidad = $_POST['especialidad'];
@@ -25,17 +25,17 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
         // Actualizamos los datos del médico
         $medicos->actualizar_medico($usuario_id, $especialidad, $no_licencia_medica, $anio_experiencia, $institucion);
-        header("Location: lista_medicos.php");
+        header("Location: ../listas/lista_medicos.php");
         exit();
     }
 } else {
     // Si no se recibe el ID, redirigimos a la lista de médicos
-    header("Location: lista_medicos.php");
+    header("Location: ../listas/lista_medicos.php");
     exit();
 }
 ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
 
 <section class="container">
     <h2>Actualizar Médico</h2>
@@ -70,4 +70,4 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <?php endif; ?>
 </section>
 
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

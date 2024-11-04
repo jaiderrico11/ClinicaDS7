@@ -1,8 +1,8 @@
 <?php
-require("../template/header.php");
-include("../includes/Database.php");
-include("../includes/Facturas.php");
-include("../includes/Citas.php");
+require("../../template/header.php");
+include("../../includes/Database.php");
+include("../../includes/Facturas.php");
+include("../../includes/Citas.php");
 
 session_start();
 $database = new Database();
@@ -33,7 +33,7 @@ if (!$paciente_id) {
 $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
 ?>
 
-<a href="./inicio_paciente.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="../inicio/inicio_paciente.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <section class="container mt-5">
     <h1 class="text-center">Citas Atendidas</h1>
@@ -80,7 +80,7 @@ $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
                 </button>
             </div>
             <div class="modal-body">
-                <form id="paymentForm" action="../controllers/procesar_pago.php" method="POST">
+                <form id="paymentForm" action="../../controllers/procesar_pago.php" method="POST">
                     <input type="hidden" id="cita_id" name="cita_id">
                     <input type="hidden" id="paciente_id" name="paciente_id" value="<?php echo htmlspecialchars($paciente_id); ?>">
                     <div class="form-group">
@@ -107,7 +107,7 @@ $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
 </div>
 <script>
     // Escuchar el evento de mostrar el modal para el formulario de pago
-    $('#paymentModal').on('show.bs.modal', function (event) {
+    $('#paymentModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Botón que abrió el modal
         var citaId = button.data('cita-id'); // Obtener el ID de la cita desde el botón
         var costo = button.data('costo'); // Obtener el costo desde el botón
@@ -118,4 +118,4 @@ $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
         modal.find('#amount').val(costo); // Mapear el costo en el campo de monto
     });
 </script>
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>
