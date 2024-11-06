@@ -41,7 +41,6 @@ if ($result === false) {
                                     <td><?php echo htmlspecialchars($row["hora"]); ?></td>
                                     <td>
                                         <a href="../registrar/atender_paciente.php?paciente_id=<?php echo htmlspecialchars($row["paciente_id"]); ?>" class="btn btn-primary">Atender</a>
-                                        <a href="../registrar/crear_cita.php" class="btn btn-primary">Reagendar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

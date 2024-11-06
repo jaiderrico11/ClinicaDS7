@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error_message'] = 'Error al guardar el historial clínico.';
     }
     // Redirigir de vuelta al formulario
-    header("Location: ../views/atender_paciente.php?paciente_id=" . $paciente_id);
+    header("Location: ../views/registrar/atender_paciente.php?paciente_id=" . $paciente_id);
     exit();
 } else {
     $_SESSION['error_message'] = 'No se han enviado datos.';

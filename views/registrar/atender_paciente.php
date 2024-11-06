@@ -123,13 +123,6 @@ require("../../template/header.php");
                     <textarea id="tratamiento" name="tratamiento" class="form-control" required></textarea>
                 </div>
 
-                <!-- Seguimiento -->
-                <h3 class="mt-4">Seguimiento</h3>
-                <div class="form-group">
-                    <label for="fecha_proxima">Fecha de Próxima Cita:</label>
-                    <input type="date" id="fecha_proxima" name="fecha_proxima" class="form-control">
-                </div>
-
                 <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
             </form>
         </div>

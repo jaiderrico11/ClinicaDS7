@@ -36,7 +36,7 @@ if ($citas->procesar_cita()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/gestion_citas.php";
+        window.location.href = "../views/listas/gestion_citas.php";
     }, 5000);
 </script>
 

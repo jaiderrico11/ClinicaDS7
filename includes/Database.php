@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private $host = "201.226.33.231";
+    private $host = "localhost";
     private $db_name = "gestion_clinica";
     private $username = "root"; // Cambia a tu nombre de usuario de MySQL
-    private $password = "chamoymoy"; // Cambia a tu contraseña de MySQL
+    private $password = ""; // Cambia a tu contraseña de MySQL
     private $conn;
 
     // Método para obtener la conexión a la base de datos

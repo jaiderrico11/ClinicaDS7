@@ -10,7 +10,7 @@
             <div class="card text-center">
                 <div class="card-body">
                     <a href="../consultar/solicitar_cita.php" class="btn btn-warning mb-3">Solicitar cita médica</a>
-                    <a href="#" class="btn btn-warning mb-3">Registro de pago de consultas</a>
+                    <a href="#" class="btn btn-warning mb-3">Verificar historial médico</a>
                     <a href="../registrar/realizar_pago.php" class="btn btn-warning mb-3">Realizar Pagos</a>
                 </div>
             </div>

@@ -2,8 +2,8 @@
 $cita_id = htmlspecialchars($_GET["cita_id"]);
 $nombre = htmlspecialchars($_GET["nombre"]);
 ?>
-
 <section class="container">
+    <a href="../inicio/inicio_paciente.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
             <form action="../../controllers/procesar_cita.php" method="post">
@@ -56,7 +56,7 @@ $nombre = htmlspecialchars($_GET["nombre"]);
                         $stmt = $medicos->consultar_medico_por_servicio_id($servicio_id);
 
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<option value='" . $row['servicio_id'] . "'>" . htmlspecialchars($row['nombre_servicio']) . "</option>";
+                            echo "<option value='" . $row['usuario_id'] . "'>" . htmlspecialchars($row['nombre']) . "</option>";
                         }
                         ?>
                     </select>

@@ -24,15 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redirigir según el rol
         if ($usuario['rol'] == 'admin') {
-            header("Location: ../views/admin_inicio.php"); // Redirigir a la pantalla de administrador
+            header("Location: ../views/inicio/admin_inicio.php"); // Redirigir a la pantalla de administrador
         } else if ($usuario['rol'] == 'Recursos Humanos') {
-            header("Location: ../views/inicio_recursos_humanos.php");
+            header("Location: ../views/inicio/inicio_recursos_humanos.php");
         } else if ($usuario['rol'] == 'Recepcionista') {
-            header("Location: ../views/inicio_recepcionista.php");
+            header("Location: ../views/inicio/inicio_recepcionista.php");
         } else if ($usuario['rol'] == 'Paciente') {
-            header("Location: ../views/inicio_paciente.php");
+            header("Location: ../views/inicio/inicio_paciente.php");
         } else if ($usuario['rol'] == 'Médico') {
-            header("Location: ../views/medico_inicio.php");
+            header("Location: ../views/inicio/medico_inicio.php");
         } else {
             header("Location: ../views/usuario_inicio.php"); // Redirigir a la pantalla de usuario regular
         }

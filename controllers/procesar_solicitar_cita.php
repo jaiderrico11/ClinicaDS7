@@ -39,7 +39,7 @@ if ($citas->solicitar_cita()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/inicio_paciente.php";
+        window.location.href = "../views/inicio/inicio_paciente.php";
     }, 5000);
 </script>
 

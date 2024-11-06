@@ -74,7 +74,7 @@ class Medicos
     }
     public function consultar_medico_por_servicio_id($servicio_id)
     {
-        $query = "SELECT medicos.medico_id, usuarios.nombre FROM " . $this->table_name . " JOIN usuarios ON usuarios.usuario_id = medicos.usuario_id WHERE medicos.especialidad LIKE :servicio_id";
+        $query = "SELECT medicos.usuario_id, usuarios.nombre FROM " . $this->table_name . " JOIN usuarios ON usuarios.usuario_id = medicos.usuario_id WHERE medicos.especialidad LIKE :servicio_id";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":servicio_id", $servicio_id);
