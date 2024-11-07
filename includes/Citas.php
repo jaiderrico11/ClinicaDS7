@@ -90,8 +90,6 @@ class Citas
         return $stmt->fetchAll(PDO::FETCH_ASSOC);  
     }
 
-    public function cancelar_cita() {}
-
     // Ejemplo de función
     public function consultar_paciente_por_id($paciente_id) {
         $query = "
@@ -128,9 +126,11 @@ class Citas
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function actualizar_estado_cita($cita_id, $nuevo_estado) {
-        $query = "UPDATE citas SET estado = ? WHERE cita_id = ?";
+        $query = "UPDATE citas SET estado = :estado WHERE cita_id = :cita_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("si", $nuevo_estado, $cita_id);
+        
+        $stmt->bindParam(':estado', $nuevo_estado, PDO::PARAM_STR);
+        $stmt->bindParam(':cita_id', $cita_id, PDO::PARAM_INT);
     
         return $stmt->execute(); // Devuelve verdadero si se actualizó correctamente
     }    

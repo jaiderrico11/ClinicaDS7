@@ -1,5 +1,5 @@
 <?php
-require_once '../../includes/Database.php';
+require_once dirname(__FILE__, 2) . '/includes/Database.php';
 $database = new Database();
 $db = $database->getConnection();
 $success_message = '';
@@ -27,7 +27,7 @@ $query = "SELECT * FROM medicamentos";
 $stmt = $db->prepare($query);
 $stmt->execute();
 $medicamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-require("../../template/header.php");
+require_once dirname(__FILE__, 2) . '/template/header.php';
 ?>
 <section class="container mt-5">
     <div class="text-center">
@@ -38,8 +38,8 @@ require("../../template/header.php");
             <div class="alert alert-danger"><?php echo $error_message; ?></div>
         <?php endif; ?>
         <?php if ($insertado): ?>
-            <a href="../../consultar/consultar_medicamentos.php" class="btn btn-primary">Volver a Medicamentos</a>
+            <a href="../views/consultar/consultar_medicamentos.php" class="btn btn-primary">Volver a Medicamentos</a>
         <?php endif; ?>
     </div>
 </section>
-<?php require("../../template/footer.php"); ?>
+<?php require_once dirname(__FILE__, 2) . '/template/footer.php';  ?>

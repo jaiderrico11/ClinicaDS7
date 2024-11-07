@@ -77,5 +77,16 @@ class Pacientes
         }
         return false;
     }
-    
+
+    public function consultar_citas(){
+        $query = "Call PacienteConsultarCitas(:usuario_id)";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":usuario_id", $this->paciente_id);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
 }

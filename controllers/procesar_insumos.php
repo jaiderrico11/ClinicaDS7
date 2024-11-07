@@ -34,7 +34,7 @@ require("../template/header.php");
         <?php if (!empty($error_message)): ?>
             <div class="alert alert-danger"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <a href="../views/consultar_insumos.php" class="btn btn-primary">Volver a Insumos</a>
+        <a href="../views/consultar/consultar_insumos.php" class="btn btn-primary">Volver a Insumos</a>
     </div>
 </section>
 <?php require("../template/footer.php"); ?>
