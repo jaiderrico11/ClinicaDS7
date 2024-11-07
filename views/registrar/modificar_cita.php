@@ -3,11 +3,11 @@ $cita_id = htmlspecialchars($_GET["cita_id"]);
 $nombre = htmlspecialchars($_GET["nombre"]);
 ?>
 <section class="container">
-    <a href="../inicio/inicio_paciente.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+    <a href="../listas/lista_citas_modificar.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
-            <h1 class="text-center">Crear Cita</h1>
-            <form action="../../controllers/procesar_cita.php" method="post">
+            <h1 class="text-center">Modificar Cita</h1>
+            <form action="../../controllers/procesar_modificar_cita.php" method="post">
                 <input class="d-none" type="number" id="cita_id" name="cita_id" value="<?php echo $cita_id ?>">
 
                 <div class="mb-3">
@@ -74,7 +74,7 @@ $nombre = htmlspecialchars($_GET["nombre"]);
                 </div>
 
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-primary">Crear cita</button>
+                    <button type="submit" class="btn btn-primary">Modificar la cita</button>
                 </div>
             </form>
         </div>

@@ -14,6 +14,7 @@
                     <a href="#" class="btn btn-warning mb-3">Registro de pago de consultas</a>
                     <a href="../consultar/consultar_disponibilidad_medico.php" class="btn btn-warning mb-3">Consultar Disponibilidad de Medicos</a>
                     <a href="../listas/gestion_citas.php" class="btn btn-warning mb-3">Creación de Citas</a>
+                    <a href="../listas/lista_citas_modificar.php" class="btn btn-warning mb-3">Modificar Citas</a>
                 </div>
             </div>
         </div>

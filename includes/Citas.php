@@ -32,6 +32,20 @@ class Citas
         return false;
     }
 
+    public function consultar_cita_por_paciente($cedula){
+        $query = "Call ConsultarCitaPorPaciente(:cedula)";
+
+        $stmt = $this->conn->prepare($query);
+
+        // Vincular parámetros
+        $stmt->bindParam(':cedula', $cedula);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+
     public function solicitar_cita()
     {
         $query = "INSERT INTO " . $this->table_name . " (estado,paciente_id, servicio_id) 
