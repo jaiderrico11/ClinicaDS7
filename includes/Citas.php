@@ -35,7 +35,7 @@ class Citas
 
     public function consultar_cita_por_paciente($cedula)
     {
-        $query = "Call ConsultarCitaPorPaciente(:cedula)";
+        $query = "Call ConsultarCitasPorPaciente(:cedula)";
 
         $stmt = $this->conn->prepare($query);
 
