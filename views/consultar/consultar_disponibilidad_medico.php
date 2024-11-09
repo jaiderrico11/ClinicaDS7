@@ -8,7 +8,7 @@ $db = $database->getConnection();
 
 // Instancia de la clase Medicos
 $medicos = new Medicos($db);
-$lista_medicos = $medicos->consultar_medicos_disponibles();
+//$lista_medicos = $medicos->consultar_medicos_disponibles();
 ?>
 
 <a href="../inicio/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>

@@ -15,12 +15,14 @@ $pacientes = new Pacientes($db);
 $result = $pacientes->obtener_id_paciente($_SESSION["usuario_id"]);
 $citas->paciente_id = $result["paciente_id"];
 $citas->servicio_id = $_POST["servicio"];
+$citas->fecha = $_POST["fecha"];
+$citas->id_turno = $_POST["turno"];
 
 // Registrar la solicitud de cita
 if ($citas->solicitar_cita()) {
     $resultado = "Cita solicitada con éxito.";
 } else {
-    $resultado = "Error al solicitar cita médica.";
+    $resultado = "No hay citas para ese dia vuelva a solicitar la cita.";
 }
 
 ?>
@@ -31,7 +33,7 @@ if ($citas->solicitar_cita()) {
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="text-center border p-5">
             <?php echo htmlspecialchars($resultado); ?>
-            <p class="mt-3">Redirigiendo en 5 segundos a inicio...</p>
+            <p class="mt-3">Redirigiendo en 10 segundos a inicio...</p>
         </div>
     </div>
 </section>
@@ -40,7 +42,7 @@ if ($citas->solicitar_cita()) {
 <script>
     setTimeout(function() {
         window.location.href = "../views/inicio/inicio_paciente.php";
-    }, 5000);
+    }, 10000);
 </script>
 
 <?php require("../template/footer.php"); ?>

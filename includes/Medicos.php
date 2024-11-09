@@ -138,15 +138,15 @@ class Medicos
         $stmt->execute();
         return  $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function consultar_medicos_disponibles() {
+    public function consultar_medicos_disponibles($turno, $dia) {
         // Asegúrate de cambiar los nombres de las columnas y tablas según tu esquema
-        $query = "SELECT m.medico_id, u.nombre 
-                  FROM medicos m
-                  JOIN usuarios u ON m.usuario_id = u.usuario_id"; // Asegúrate de que 'usuario_id' es la clave que relaciona ambas tablas
+        $query = "Call ConsultarMedicoDisponible(:turno, :dia)"; // Asegúrate de que 'usuario_id' es la clave que relaciona ambas tablas
     
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':turno', $turno);
+        $stmt->bindParam(':dia', $dia);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt;
     }
     
 }

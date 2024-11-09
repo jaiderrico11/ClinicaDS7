@@ -10,7 +10,6 @@ $citas = new Citas($db);
 
 $citas->cita_id = $_POST["cita_id"];
 $citas->medico_id = $_POST["medico"];
-$citas->fecha = $_POST["fecha"];
 $citas->hora = $_POST["hora"];
 
 // Procesar cita
