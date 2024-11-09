@@ -1,6 +1,6 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Usuarios.php";
+include "../../includes/Database.php";
+include "../../includes/Usuarios.php";
 
 $database = new Database();
 $db = $database->getConnection();
@@ -15,11 +15,11 @@ if ($result === false) {
 }
 ?>
 
-<?php require("../template/header.php"); ?>
+<?php require("../../template/header.php"); ?>
 
 <section class="container">
     <div class="d-flex justify-content-start my-3">
-        <a href="../views/admin_inicio.php" class="btn btn-secondary">Regresar</a>
+        <a href="/views/inicio/admin_inicio.php" class="btn btn-secondary">Regresar</a>
     </div>
 
     <div>
@@ -46,8 +46,8 @@ if ($result === false) {
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["rol"]); ?></td>
                             <td>
-                                <a href="./actualizar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-primary">Actualizar</a>
-                                <a href="./eliminar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-danger">Eliminar</a>
+                                <a href="../actualizar/actualizar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-primary">Actualizar</a>
+                                <a href="../eliminar/eliminar_usuario.php?usuario_id=<?php echo $row["usuario_id"]; ?>" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -61,4 +61,4 @@ if ($result === false) {
     <?php endif; ?>
 </section>
 
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

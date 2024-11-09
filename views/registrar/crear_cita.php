@@ -3,7 +3,7 @@ $cita_id = htmlspecialchars($_GET["cita_id"]);
 $nombre = htmlspecialchars($_GET["nombre"]);
 ?>
 <section class="container">
-    <a href="../inicio/inicio_paciente.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+    <a href="../inicio/inicio_recepcionista.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
     <div class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-6 col-lg-4">
             <h1 class="text-center">Crear Cita</h1>

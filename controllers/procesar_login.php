@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['rol'] = $usuario['rol'];
 
         // Redirigir según el rol
-        if ($usuario['rol'] == 'admin') {
+        if ($usuario['rol'] == 'Administrador') {
             header("Location: ../views/inicio/admin_inicio.php"); // Redirigir a la pantalla de administrador
         } else if ($usuario['rol'] == 'Recursos Humanos') {
             header("Location: ../views/inicio/inicio_recursos_humanos.php");

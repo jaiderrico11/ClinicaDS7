@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <p class="card-text">Ajusta las configuraciones globales.</p>
                         <a href="../listas/lista_pacientes.php" class="btn btn-primary mb-3">Lista de pacientes</a>
-                        <a href="#" class="btn btn-primary mb-3">Mi horario</a>
+                        <a href="../registrar/horario.php" class="btn btn-primary mb-3">Mi horario</a>
                         <a href="../consultar/consultar_citas_del_dia.php" class="btn btn-primary mb-3">Consultar citas del día</a>
                     </div>
                 </div>

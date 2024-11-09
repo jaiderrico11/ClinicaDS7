@@ -36,7 +36,7 @@ if ($usuarios->registrar_usuarios()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/lista_usuarios.php";
+        window.location.href = "../views/listas/lista_usuarios.php";
     }, 5000);
 </script>
 
