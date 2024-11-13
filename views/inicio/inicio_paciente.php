@@ -12,6 +12,7 @@
                     <a href="../consultar/solicitar_cita.php" class="btn btn-warning mb-3">Solicitar cita médica</a>
                     <a href="../listas/lista_citas.php" class="btn btn-warning mb-3">Lista de Citas</a>
                     <a href="#" class="btn btn-warning mb-3">Verificar historial médico</a>
+                    <a href="../registrar/datos_medicos.php" class="btn btn-warning mb-3">Registrar Datos Médicos</a>
                     <a href="../registrar/realizar_pago.php" class="btn btn-warning mb-3">Realizar Pagos</a>
                 </div>
             </div>
