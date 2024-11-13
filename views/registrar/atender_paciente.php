@@ -1,12 +1,14 @@
 <?php
 include "../../includes/Database.php";
 include "../../includes/Citas.php";
+include "../../includes/Datos_Medicos.php"; // Incluir la clase de datos médicos
 session_start();
 
 $database = new Database();
 $db = $database->getConnection();
 
 $citas = new Citas($db);
+$datos_medicos = new Datos_Medicos($db); // Instanciar la clase para los datos médicos
 
 // Verificamos si se ha pasado un ID de paciente
 if (isset($_GET['paciente_id'])) {
@@ -19,11 +21,17 @@ if (isset($_GET['paciente_id'])) {
         $error = "Error en la consulta del paciente.";
         $paciente_data = [];
     }
+
+    // Obtener los datos médicos del paciente
+    $datos_medicos->paciente_id = $paciente_id;
+    $datos_medicos_data = $datos_medicos->obtenerPorPacienteId($paciente_id);
 } else {
     // Manejar el caso cuando no se proporciona un ID
     $error = "No se ha proporcionado el ID del paciente.";
     $paciente_data = [];
+    $datos_medicos_data = [];
 }
+
 // Mostrar mensajes de éxito o error
 if (isset($_SESSION['success_message'])) {
     echo '<div class="alert alert-success" role="alert">' . $_SESSION['success_message'] . '</div>';
@@ -90,24 +98,27 @@ require("../../template/header.php");
 
                 <!-- Datos Médicos -->
                 <h3 class="mt-4">Datos Médicos</h3>
+
                 <div class="form-group">
                     <label for="altura">Altura (cm):</label>
-                    <input type="text" id="altura" name="altura" class="form-control" required>
+                    <input type="text" id="altura" name="altura" class="form-control" 
+                    value="<?php echo isset($datos_medicos->altura) ? htmlspecialchars($datos_medicos->altura) : ''; ?>" readonly required>
                 </div>
 
                 <div class="form-group">
                     <label for="peso">Peso (kg):</label>
-                    <input type="text" id="peso" name="peso" class="form-control" required>
+                    <input type="text" id="peso" name="peso" class="form-control" 
+                    value="<?php echo isset($datos_medicos->peso) ? htmlspecialchars($datos_medicos->peso) : ''; ?>" readonly required>
                 </div>
 
                 <div class="form-group">
                     <label for="tipo_sangre">Tipo de Sangre:</label>
-                    <input type="text" id="tipo_sangre" name="tipo_sangre" class="form-control" required>
+                    <input type="text" id="tipo_sangre" name="tipo_sangre" class="form-control" 
+                    value="<?php echo isset($datos_medicos->tipo_sangre) ? htmlspecialchars($datos_medicos->tipo_sangre) : ''; ?>" readonly required>
                 </div>
-
                 <div class="form-group">
                     <label for="alergias">Alergias:</label>
-                    <textarea id="alergias" name="alergias" class="form-control" required></textarea>
+                    <textarea id="alergias" name="alergias" class="form-control" readonly required><?php echo isset($datos_medicos->alergias) ? htmlspecialchars($datos_medicos->alergias) : ''; ?></textarea>
                 </div>
 
                 <!-- Receta Médica -->

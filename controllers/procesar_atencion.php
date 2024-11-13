@@ -12,10 +12,6 @@ $citas = new Citas($db);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $paciente_id = $_POST['paciente_id'];
     $diagnostico = $_POST['diagnostico'];
-    $altura = $_POST['altura'];
-    $peso = $_POST['peso'];
-    $tipo_sangre = $_POST['tipo_sangre'];
-    $alergias = $_POST['alergias'];
     $medicamento = $_POST['medicamento'];
     $tratamiento = $_POST['tratamiento'];
 
@@ -41,32 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_diagnostico->bindParam(':descripcion', $diagnostico);
 
         if ($stmt_diagnostico->execute()) {
-            // Insertar datos médicos
-            $query_datos_medicos = "INSERT INTO datos_medicos (paciente_id, altura, peso, tipo_sangre, alergias) VALUES (:paciente_id, :altura, :peso, :tipo_sangre, :alergias)";
-            $stmt_datos_medicos = $db->prepare($query_datos_medicos);
-            $stmt_datos_medicos->bindParam(':paciente_id', $paciente_id);
-            $stmt_datos_medicos->bindParam(':altura', $altura);
-            $stmt_datos_medicos->bindParam(':peso', $peso);
-            $stmt_datos_medicos->bindParam(':tipo_sangre', $tipo_sangre);
-            $stmt_datos_medicos->bindParam(':alergias', $alergias);
+            // Insertar receta médica
+            $query_recetas = "INSERT INTO recetas (paciente_id, medicamento, tratamiento, fecha_prescripcion) VALUES (:paciente_id, :medicamento, :tratamiento, NOW())";
+            $stmt_recetas = $db->prepare($query_recetas);
+            $stmt_recetas->bindParam(':paciente_id', $paciente_id);
+            $stmt_recetas->bindParam(':medicamento', $medicamento);
+            $stmt_recetas->bindParam(':tratamiento', $tratamiento);
 
-            if ($stmt_datos_medicos->execute()) {
-                // Insertar receta médica
-                $query_recetas = "INSERT INTO recetas (paciente_id, medicamento, tratamiento, fecha_prescripcion) VALUES (:paciente_id, :medicamento, :tratamiento, NOW())";
-                $stmt_recetas = $db->prepare($query_recetas);
-                $stmt_recetas->bindParam(':paciente_id', $paciente_id);
-                $stmt_recetas->bindParam(':medicamento', $medicamento);
-                $stmt_recetas->bindParam(':tratamiento', $tratamiento);
-
-                // Ejecutar la inserción de la receta médica
-                if ($stmt_recetas->execute()) {
-                    // Guardar el mensaje de éxito en la sesión
-                    $_SESSION['success_message'] = 'Atención registrada exitosamente.';
-                } else {
-                    $_SESSION['error_message'] = 'Error al guardar la receta médica.';
-                }
+            // Ejecutar la inserción de la receta médica
+            if ($stmt_recetas->execute()) {
+                // Guardar el mensaje de éxito en la sesión
+                $_SESSION['success_message'] = 'Atención registrada exitosamente.';
             } else {
-                $_SESSION['error_message'] = 'Error al guardar los datos médicos.';
+                $_SESSION['error_message'] = 'Error al guardar la receta médica.';
             }
         } else {
             $_SESSION['error_message'] = 'Error al guardar el diagnóstico.';
