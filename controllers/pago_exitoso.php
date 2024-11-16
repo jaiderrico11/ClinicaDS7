@@ -17,7 +17,7 @@ require("../template/header.php");
         ?>
     </div>
     <div class="text-center">
-        <a href="../views/inicio_paciente.php" class="btn btn-primary">Regresar a Inicio</a>
+        <a href="../views/inicio/inicio_paciente.php" class="btn btn-primary">Regresar a Inicio</a>
     </div>
 </section>
 

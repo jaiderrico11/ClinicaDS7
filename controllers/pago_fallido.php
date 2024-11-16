@@ -17,8 +17,8 @@ require("../template/header.php");
         ?>
     </div>
     <div class="text-center">
-        <a href="../views/inicio_paciente.php" class="btn btn-primary">Regresar a Inicio</a>
-        <a href="../views/realizar_pago.php" class="btn btn-secondary">Intentar de Nuevo</a>
+        <a href="../views/inicio/inicio_paciente.php" class="btn btn-primary">Regresar a Inicio</a>
+        <a href="../views/registrar/realizar_pago.php" class="btn btn-secondary">Intentar de Nuevo</a>
     </div>
 </section>
 
