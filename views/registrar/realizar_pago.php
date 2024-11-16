@@ -55,7 +55,12 @@ $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
                             <td><?php echo htmlspecialchars($cita["hora"]); ?></td>
                             <td><?php echo htmlspecialchars($cita["costo"]); ?></td>
                             <td>
-                                <button class="btn btn-warning" data-toggle="modal" data-target="#paymentModal" data-cita-id="<?php echo htmlspecialchars($cita["cita_id"]); ?>" data-costo="<?php echo htmlspecialchars($cita["costo"]); ?>">Pagar</button>
+                                <form action="../../controllers/procesar_pago.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="cita_id" value="<?php echo htmlspecialchars($cita["cita_id"]); ?>">
+                                    <input type="hidden" name="paciente_id" value="<?php echo htmlspecialchars($paciente_id); ?>">
+                                    <input type="hidden" name="amount" value="<?php echo htmlspecialchars($cita["costo"]); ?>">
+                                    <button type="submit" class="btn btn-warning">Pagar</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -68,54 +73,4 @@ $citas_atendidas = $citas->consultar_citas_atendidas_por_paciente($paciente_id);
         </table>
     </div>
 </section>
-
-<!-- Modal para el formulario de pago -->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Formulario de Pago</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="paymentForm" action="../../controllers/procesar_pago.php" method="POST">
-                    <input type="hidden" id="cita_id" name="cita_id">
-                    <input type="hidden" id="paciente_id" name="paciente_id" value="<?php echo htmlspecialchars($paciente_id); ?>">
-                    <div class="form-group">
-                        <label for="card_number">Número de tarjeta</label>
-                        <input type="text" class="form-control" id="card_number" name="card_number" placeholder="Número de tarjeta" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="expiry_date">Fecha de expiración</label>
-                        <input type="month" class="form-control" id="expiry_date" name="expiry_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">Monto</label>
-                        <input type="text" class="form-control" id="amount" name="amount" readonly>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Pagar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    // Escuchar el evento de mostrar el modal para el formulario de pago
-    $('#paymentModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); // Botón que abrió el modal
-        var citaId = button.data('cita-id'); // Obtener el ID de la cita desde el botón
-        var costo = button.data('costo'); // Obtener el costo desde el botón
-
-        // Asignar valores a los campos del formulario en el modal
-        var modal = $(this);
-        modal.find('#cita_id').val(citaId);
-        modal.find('#amount').val(costo); // Mapear el costo en el campo de monto
-    });
-</script>
 <?php require("../../template/footer.php") ?>
