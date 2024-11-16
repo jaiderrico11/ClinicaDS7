@@ -1,33 +1,38 @@
 <?php
-require_once dirname(__FILE__, 2) . '/includes/Database.php';
+include "../includes/Database.php";
+include "../includes/Medicamentos.php";
+include "../includes/Padecimientos.php";
+
 $database = new Database();
 $db = $database->getConnection();
+
+$medicamentos = new Medicamentos($db);
+$padecimientos = new Padecimientos($db);
+
 $success_message = '';
 $error_message = '';
-$insertado = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre = $_POST['nombre'];
-    $cantidad = $_POST['cantidad'];
-    $unidad = $_POST['unidad'];
-    $query = "INSERT INTO medicamentos (nombre, cantidad, unidad) VALUES (:nombre, :cantidad, :unidad)";
-    $stmt = $db->prepare($query);
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':cantidad', $cantidad);
-    $stmt->bindParam(':unidad', $unidad);
-    if ($stmt->execute()) {
+    $medicamentos->nombre = $_POST["nombre"];
+    $medicamentos->cantidad = $_POST["cantidad"];
+    $medicamentos->unidad = $_POST["unidad"];
+    $medicamentos->tipo = $_POST["tipo"];
+    $medicamentos->tratamiento = $_POST["tratamiento"];
+    $medicamentos->id_padecimiento = $_POST["id_padecimiento"];
+
+    if ($medicamentos->insertar_medicamento()) {
         $success_message = 'Medicamento insertado exitosamente.';
-        $insertado = true;
     } else {
         $error_message = 'Error al insertar el medicamento.';
     }
 }
 
-$query = "SELECT * FROM medicamentos";
-$stmt = $db->prepare($query);
-$stmt->execute();
-$medicamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-require_once dirname(__FILE__, 2) . '/template/header.php';
+$query_padecimientos = "SELECT id_padecimiento, padecimiento FROM padecimiento";
+$stmt_padecimientos = $db->prepare($query_padecimientos);
+$stmt_padecimientos->execute();
+$padecimientos = $stmt_padecimientos->fetchAll(PDO::FETCH_ASSOC);
+
+require("../template/header.php");
 ?>
 <section class="container mt-5">
     <div class="text-center">
@@ -37,9 +42,7 @@ require_once dirname(__FILE__, 2) . '/template/header.php';
         <?php if (!empty($error_message)): ?>
             <div class="alert alert-danger"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <?php if ($insertado): ?>
-            <a href="../views/consultar/consultar_medicamentos.php" class="btn btn-primary">Volver a Medicamentos</a>
-        <?php endif; ?>
+        <a href="../views/registrar/registrar_medicamento.php" class="btn btn-primary">Volver a registrar medicamento</a>
     </div>
 </section>
-<?php require_once dirname(__FILE__, 2) . '/template/footer.php';  ?>
+<?php require("../template/footer.php"); ?>
