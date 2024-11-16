@@ -10,6 +10,18 @@ class Padecimientos {
         $this->conn = $db;
     }
 
+    public function insertar_padecimiento() {
+        $query = "INSERT INTO " . $this->table_name . " (padecimiento) VALUES (:padecimiento)";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':padecimiento', $this->padecimiento);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
     public function obtener_padecimientos() {
         $query = "SELECT id_padecimiento, padecimiento FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
