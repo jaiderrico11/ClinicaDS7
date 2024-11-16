@@ -1,6 +1,6 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Padecimientos.php";
+include "../../includes/Database.php";
+include "../../includes/Padecimientos.php";
 
 $database = new Database();
 $db = $database->getConnection();
