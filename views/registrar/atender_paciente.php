@@ -161,54 +161,77 @@ require("../../template/header.php");
     document.addEventListener('DOMContentLoaded', function () {
     const diagnosticosContainer = document.getElementById('diagnosticos-container');
     const addDiagnosticoButton = document.getElementById('add-diagnostico');
-    let padecimientosSeleccionados = new Set(); // Para almacenar los diagnósticos seleccionados
+    let padecimientosSeleccionados = new Set(); // Conjunto para los diagnósticos seleccionados
 
-    // Ocultar el botón inicialmente
-    addDiagnosticoButton.style.display = 'none';
-
-    // Función para verificar el último select
-    const validarUltimoDiagnostico = () => {
-        const lastSelect = diagnosticosContainer.querySelector('.diagnostico-item:last-child select');
-        const selectedValue = lastSelect ? lastSelect.value : '';
-
-        if (selectedValue && !padecimientosSeleccionados.has(selectedValue)) {
-            addDiagnosticoButton.style.display = 'inline-block'; // Mostrar el botón
+    // Función para ocultar el botón si no hay opciones disponibles
+    const verificarOpcionesRestantes = () => {
+        const selects = diagnosticosContainer.querySelectorAll('select[name="diagnostico[]"]');
+        const totalOptions = Array.from(selects[0].options).length - 1; // Excluir el "Seleccione un diagnóstico"
+        if (padecimientosSeleccionados.size >= totalOptions) {
+            addDiagnosticoButton.style.display = 'none'; // Ocultar el botón si se seleccionaron todos
         } else {
-            addDiagnosticoButton.style.display = 'none'; // Ocultar el botón
+            addDiagnosticoButton.style.display = 'inline-block'; // Mostrar el botón si hay opciones restantes
         }
+    };
+
+    // Función para actualizar las opciones de todos los selects
+    const actualizarOpciones = () => {
+        const selects = diagnosticosContainer.querySelectorAll('select[name="diagnostico[]"]');
+
+        selects.forEach(select => {
+            const currentValue = select.value; // Diagnóstico actual seleccionado en este select
+            Array.from(select.options).forEach(option => {
+                // Si el diagnóstico está seleccionado en otro lugar, ocultarlo, excepto si es el actual
+                if (padecimientosSeleccionados.has(option.value) && option.value !== currentValue) {
+                    option.style.display = 'none';
+                } else {
+                    option.style.display = ''; // Mostrar opciones no seleccionadas
+                }
+            });
+        });
+
+        verificarOpcionesRestantes(); // Revisar si debe ocultarse el botón
     };
 
     // Detectar cambios en los selects
     diagnosticosContainer.addEventListener('change', function (e) {
         if (e.target && e.target.name === "diagnostico[]") {
-            const selectedValue = e.target.value;
+            const select = e.target;
+            const selectedValue = select.value;
 
+            // Validar si el diagnóstico ya fue seleccionado en otro lugar
             if (padecimientosSeleccionados.has(selectedValue)) {
                 alert('Este diagnóstico ya ha sido seleccionado.');
-                e.target.value = ""; // Restablecer el select
+                select.value = ""; // Restablecer el select
             } else {
-                validarUltimoDiagnostico(); // Verificar si el botón debe mostrarse
+                // Remover el valor anterior si cambia la selección
+                const previousValue = Array.from(select.options).find(option => option.selected && option.value !== selectedValue);
+                if (previousValue) {
+                    padecimientosSeleccionados.delete(previousValue.value);
+                }
+
+                // Agregar el nuevo valor al conjunto
+                if (selectedValue) {
+                    padecimientosSeleccionados.add(selectedValue);
+                }
+
+                actualizarOpciones(); // Actualizar las opciones disponibles
             }
         }
     });
 
     // Manejar el clic del botón "Añadir Padecimiento"
     addDiagnosticoButton.addEventListener('click', function () {
+        // Validar que el último diagnóstico tenga un valor seleccionado
         const lastSelect = diagnosticosContainer.querySelector('.diagnostico-item:last-child select');
-        const selectedValue = lastSelect ? lastSelect.value : '';
-
-        if (!selectedValue || padecimientosSeleccionados.has(selectedValue)) {
+        if (!lastSelect || !lastSelect.value) {
             alert('Debe seleccionar un diagnóstico válido antes de agregar otro.');
             return;
         }
 
-        // Agregar el diagnóstico seleccionado al conjunto
-        padecimientosSeleccionados.add(selectedValue);
-
-        // Crear un nuevo select para diagnóstico
+        // Crear un nuevo selector para diagnósticos
         const newDiagnostico = document.createElement('div');
         newDiagnostico.classList.add('form-group', 'diagnostico-item');
-
         newDiagnostico.innerHTML = `
             <label for="diagnostico">Diagnóstico:</label>
             <select id="diagnostico" name="diagnostico[]" class="form-control" required>
@@ -221,15 +244,22 @@ require("../../template/header.php");
             </select>
         `;
 
-        // Agregar el nuevo select al contenedor
+        // Agregar el nuevo selector al contenedor
         diagnosticosContainer.appendChild(newDiagnostico);
 
-        // Ocultar el botón hasta que se seleccione un nuevo diagnóstico
-        addDiagnosticoButton.style.display = 'none';
+        actualizarOpciones(); // Actualizar las opciones disponibles en todos los selects
     });
 
-    // Inicializar validación del botón al cargar la página
-    validarUltimoDiagnostico();
+    // Inicializar opciones y validaciones al cargar la página
+    actualizarOpciones();
+
+    // Verificar si ya hay un padecimiento seleccionado al cargar la página
+    const primerSelect = diagnosticosContainer.querySelector('select[name="diagnostico[]"]');
+    if (primerSelect && primerSelect.value) {
+        addDiagnosticoButton.style.display = 'inline-block'; // Mostrar el botón si ya hay un padecimiento seleccionado
+    } else {
+        addDiagnosticoButton.style.display = 'none'; // Mantener el botón oculto si no hay selección
+    }
 });
 </script>
 
