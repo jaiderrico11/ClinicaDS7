@@ -22,6 +22,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $medicamento = $_POST['medicamento'];
     $tratamiento = $_POST['tratamiento'];
 
+    // Si 'medicamento' es un array, lo convertimos en una cadena separada por comas
+    if (is_array($medicamento)) {
+        // Obtener los nombres de los medicamentos utilizando sus IDs
+        $medicamentosNombres = [];
+        foreach ($medicamento as $med_id) {
+            $query_medicamento_nombre = "SELECT nombre FROM medicamentos WHERE medicamento_id = :medicamento_id LIMIT 1";
+            $stmt_medicamento_nombre = $db->prepare($query_medicamento_nombre);
+            $stmt_medicamento_nombre->bindParam(':medicamento_id', $med_id);
+            $stmt_medicamento_nombre->execute();
+
+            if ($row = $stmt_medicamento_nombre->fetch(PDO::FETCH_ASSOC)) {
+                $medicamentosNombres[] = $row['nombre']; // Añadir el nombre del medicamento
+            }
+        }
+        // Convertir el array de nombres en una cadena separada por comas
+        $medicamento = implode(", ", $medicamentosNombres);
+    } else {
+        // Si solo hay un medicamento, obtener su nombre directamente
+        $query_medicamento_nombre = "SELECT nombre FROM medicamento WHERE id_medicamento = :medicamento_id LIMIT 1";
+        $stmt_medicamento_nombre = $db->prepare($query_medicamento_nombre);
+        $stmt_medicamento_nombre->bindParam(':medicamento_id', $medicamento);
+        $stmt_medicamento_nombre->execute();
+
+        if ($row = $stmt_medicamento_nombre->fetch(PDO::FETCH_ASSOC)) {
+            $medicamento = $row['nombre']; // Asignar el nombre del medicamento
+        }
+    }
+
     // Primero, deberías asegurarte de que el paciente existe (opcional)
     $paciente_data = $citas->consultar_paciente_por_id($paciente_id);
     if (!$paciente_data) {

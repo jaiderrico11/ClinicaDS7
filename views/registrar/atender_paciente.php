@@ -40,6 +40,10 @@ if (isset($_GET['paciente_id'])) {
     $paciente_data = [];
     $datos_medicos_data = [];
 }
+$query_medicamentos = "SELECT medicamento_id, nombre FROM medicamentos";
+$stmt_medicamentos = $db->prepare($query_medicamentos);
+$stmt_medicamentos->execute();
+$medicamentos = $stmt_medicamentos->fetchAll(PDO::FETCH_ASSOC);
 
 // Mostrar mensajes de éxito o error
 if (isset($_SESSION['success_message'])) {
@@ -143,14 +147,23 @@ require("../../template/header.php");
                 <h3 class="mt-4">Receta Médica</h3>
 
                 <div class="form-group">
-                    <label for="medicamento">Medicamento:</label>
-                    <input type="text" id="medicamento" name="medicamento" class="form-control" required>
+                <label for="medicamento">Seleccione el Medicamento:</label>
+                    <select id="medicamento" name="medicamento[]" class="form-control" required>
+                    <option value="" disabled selected>Seleccione un medicamento</option>
+                    <?php foreach ($medicamentos as $medicamento): ?>
+                                <option value="<?php echo htmlspecialchars($medicamento['medicamento_id']); ?>">
+                                    <?php echo htmlspecialchars($medicamento['nombre']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                    </select>         
                 </div>
 
-                <div class="form-group">
-                    <label for="tratamiento">Tratamiento:</label>
-                    <textarea id="tratamiento" name="tratamiento" class="form-control" required></textarea>
+                <div class="form-group" id="tratamiento-container">
+                <label for="tratamiento">Tratamiento:</label>
+                <textarea id="tratamiento" name="tratamiento" class="form-control"></textarea>
                 </div>
+
+
 
                 <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
             </form>
@@ -263,4 +276,43 @@ require("../../template/header.php");
 });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const medicamentoSelect = document.getElementById('medicamento');
+    const tratamientoContainer = document.getElementById('tratamiento-container');
+    const tratamientoTextarea = document.getElementById('tratamiento');
+
+    // Inicializa el campo de tratamiento como oculto
+    tratamientoContainer.style.display = 'none';
+
+    // Evento para manejar la selección de un medicamento
+    medicamentoSelect.addEventListener('change', function () {
+        const medicamentoId = medicamentoSelect.value;
+
+        if (medicamentoId) {
+            // Enviar solicitud AJAX para obtener el tratamiento del medicamento
+            fetch(`../../ajax/get_tratamiento.php?medicamento_id=${medicamentoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.tratamiento) {
+                        tratamientoTextarea.value = data.tratamiento; // Establecer el tratamiento
+                        tratamientoContainer.style.display = 'block'; // Mostrar el campo de tratamiento
+                    } else {
+                        tratamientoTextarea.value = ''; // Limpiar el campo si no se encuentra el tratamiento
+                        tratamientoContainer.style.display = 'none'; // Ocultar el campo de tratamiento
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener el tratamiento:', error);
+                    tratamientoTextarea.value = ''; // Limpiar el campo en caso de error
+                    tratamientoContainer.style.display = 'none'; // Ocultar el campo de tratamiento
+                });
+        } else {
+            tratamientoContainer.style.display = 'none'; // Ocultar el campo si no se selecciona medicamento
+        }
+    });
+});
+
+
+</script>
 <?php require("../../template/footer.php"); ?>
