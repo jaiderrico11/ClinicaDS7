@@ -50,6 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Verificar si 'tratamiento' es un array y convertirlo en una cadena separada por comas
+    if (is_array($tratamiento)) {
+        $tratamiento = implode(", ", $tratamiento); // Convertir tratamiento a cadena separada por comas
+    }
+
     // Primero, deberías asegurarte de que el paciente existe (opcional)
     $paciente_data = $citas->consultar_paciente_por_id($paciente_id);
     if (!$paciente_data) {
