@@ -31,5 +31,12 @@ class Medicamentos {
         }
         return false;
     }
+
+    public function obtener_medicamentos() {
+        $query = "SELECT * FROM " . $this->table_name;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

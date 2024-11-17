@@ -1,12 +1,16 @@
 <?php
 include "../../includes/Database.php";
 include "../../includes/Padecimientos.php";
+include "../../includes/Medicamentos.php";
 
 $database = new Database();
 $db = $database->getConnection();
 
 $padecimientos = new Padecimientos($db);
 $padecimientos_list = $padecimientos->obtener_padecimientos();
+
+$medicamentos = new Medicamentos($db);
+$medicamentos_list = $medicamentos->obtener_medicamentos();
 ?>
 
 <?php require('../../template/header.php'); ?>
@@ -47,37 +51,36 @@ $padecimientos_list = $padecimientos->obtener_padecimientos();
         </form>
 
         <h2 class="mt-5">Lista de Medicamentos</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Unidad</th>
-                    <th>Tipo</th>
-                    <th>Tratamiento</th>
-                    <th>ID Padecimiento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $query = "SELECT * FROM medicamentos";
-                $stmt = $db->prepare($query);
-                $stmt->execute();
-                $medicamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($medicamentos as $medicamento): ?>
+        <?php if (empty($medicamentos_list)): ?>
+            <div class="alert alert-warning">No hay medicamentos registrados.</div>
+        <?php else: ?>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($medicamento['medicamento_id']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['nombre']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['cantidad']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['unidad']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['tipo']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['tratamiento']); ?></td>
-                        <td><?php echo htmlspecialchars($medicamento['id_padecimiento']); ?></td>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Unidad</th>
+                        <th>Tipo</th>
+                        <th>Tratamiento</th>
+                        <th>ID Padecimiento</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($medicamentos_list as $medicamento): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($medicamento['medicamento_id']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['nombre']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['cantidad']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['unidad']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['tipo']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['tratamiento']); ?></td>
+                            <td><?php echo htmlspecialchars($medicamento['id_padecimiento']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </div>
 </body>
 <?php require('../../template/footer.php'); ?>

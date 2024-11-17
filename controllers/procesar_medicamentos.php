@@ -1,5 +1,5 @@
 <?php
-include dirname(__FILE__, 2) . '/includes/Database.php';
+include "../includes/Database.php";
 include "../includes/Medicamentos.php";
 include "../includes/Padecimientos.php";
 
