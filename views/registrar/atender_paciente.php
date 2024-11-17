@@ -67,9 +67,9 @@ require("../../template/header.php");
 
                 <!-- Datos Básicos del Paciente -->
                 <h3 class="mt-4">Datos Básicos del Paciente</h3>
-                <div class="form-group">
+                <div class="form-group" style="display: none;" >
                     <label for="paciente_id">ID del Paciente:</label>
-                    <input type="text" id="paciente_id" name="paciente_id" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['paciente_id']); ?>">
+                    <input type="text" id="paciente_id" name="paciente_id" class="form-control"readonly value="<?php echo htmlspecialchars($paciente_data['paciente_id']); ?>">
                 </div>
 
                 <div class="form-group">
@@ -146,26 +146,36 @@ require("../../template/header.php");
                 <!-- Receta Médica -->
                 <h3 class="mt-4">Receta Médica</h3>
 
-                <div class="form-group">
-                <label for="medicamento">Seleccione el Medicamento:</label>
-                    <select id="medicamento" name="medicamento[]" class="form-control" required>
-                    <option value="" disabled selected>Seleccione un medicamento</option>
-                    <?php foreach ($medicamentos as $medicamento): ?>
+                <div id="medicamentos-container">
+                    <!-- Primer medicamento -->
+                    <div class="form-group medicamento-item">
+                        <label for="medicamento">Seleccione el Medicamento:</label>
+                        <select id="medicamento" name="medicamento[]" class="form-control" required>
+                            <option value="" disabled selected>Seleccione un medicamento</option>
+                            <?php foreach ($medicamentos as $medicamento): ?>
                                 <option value="<?php echo htmlspecialchars($medicamento['medicamento_id']); ?>">
                                     <?php echo htmlspecialchars($medicamento['nombre']); ?>
                                 </option>
                             <?php endforeach; ?>
-                    </select>         
+                        </select>
+                    </div>
+
+                    <div class="form-group tratamiento-container" style="display: none;">
+                        <label for="tratamiento">Tratamiento:</label>
+                        <textarea id="tratamiento" name="tratamiento" class="form-control"></textarea>
+
+                        <!-- Spinner que será mostrado durante la carga del tratamiento -->
+                        <div class="spinner" style="display: none;">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                <!-- Botón para añadir otro medicamento -->
+                <button id="add-medicamento" type="button" class="btn btn-secondary" style="display: none;">Añadir otro medicamento</button>
                 </div>
 
-                <div class="form-group" id="tratamiento-container">
-                <label for="tratamiento">Tratamiento:</label>
-                <textarea id="tratamiento" name="tratamiento" class="form-control"></textarea>
-                </div>
-
-
-
-                <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
+            <button type="submit" class="btn btn-primary mt-3">Guardar Atención</button>
             </form>
         </div>
     </div>
@@ -276,43 +286,98 @@ require("../../template/header.php");
 });
 </script>
 
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const medicamentoSelect = document.getElementById('medicamento');
-    const tratamientoContainer = document.getElementById('tratamiento-container');
-    const tratamientoTextarea = document.getElementById('tratamiento');
+document.addEventListener('DOMContentLoaded', function () {
+    const medicamentoSelect = document.getElementById('medicamento'); // Select de medicamento
+    const tratamientoContainer = document.querySelector('.tratamiento-container'); // Contenedor del tratamiento
+    const tratamientoTextarea = document.getElementById('tratamiento'); // Textarea del tratamiento
+    const addMedicamentoButton = document.getElementById('add-medicamento'); // Botón para añadir otro medicamento
+    
+    // Función para mostrar el tratamiento y la spinner
+    const mostrarTratamiento = (medicamentoId) => {
+    // Mostrar el spinner mientras cargamos el tratamiento
+    tratamientoContainer.querySelector('.spinner').style.display = 'block';
+    tratamientoContainer.querySelector('textarea').style.display = 'none'; // Ocultar textarea mientras cargamos
+    
+    // Realizar una solicitud fetch para obtener el tratamiento del servidor
+    fetch(`../../ajax/get_tratamiento.php?medicamento_id=${medicamentoId}`)
+        .then(response => response.json()) // Asumimos que el servidor devuelve un JSON
+        .then(data => {
+            // Aquí obtenemos el tratamiento desde el servidor
+            const tratamiento = data.tratamiento || "Tratamiento no disponible";
+            
+            // Mostrar el tratamiento en el textarea
+            tratamientoTextarea.value = tratamiento;
+            
+            // Mostrar el textarea y ocultar el spinner
+            tratamientoContainer.querySelector('.spinner').style.display = 'none';
+            tratamientoContainer.querySelector('textarea').style.display = 'block';
+            tratamientoContainer.style.display = 'block'; // Mostrar el contenedor del tratamiento
+            
+            // Mostrar el botón "Añadir otro medicamento"
+            addMedicamentoButton.style.display = 'inline-block';
+        })
+        .catch(error => {
+            console.error('Error al obtener el tratamiento:', error);
+            tratamientoTextarea.value = "Error al cargar el tratamiento.";
+            tratamientoContainer.querySelector('.spinner').style.display = 'none';
+            tratamientoContainer.querySelector('textarea').style.display = 'block';
+            tratamientoContainer.style.display = 'block';
+        });
+};
 
-    // Inicializa el campo de tratamiento como oculto
-    tratamientoContainer.style.display = 'none';
 
-    // Evento para manejar la selección de un medicamento
+    // Detectar cuando el usuario selecciona un medicamento
     medicamentoSelect.addEventListener('change', function () {
-        const medicamentoId = medicamentoSelect.value;
-
-        if (medicamentoId) {
-            // Enviar solicitud AJAX para obtener el tratamiento del medicamento
-            fetch(`../../ajax/get_tratamiento.php?medicamento_id=${medicamentoId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.tratamiento) {
-                        tratamientoTextarea.value = data.tratamiento; // Establecer el tratamiento
-                        tratamientoContainer.style.display = 'block'; // Mostrar el campo de tratamiento
-                    } else {
-                        tratamientoTextarea.value = ''; // Limpiar el campo si no se encuentra el tratamiento
-                        tratamientoContainer.style.display = 'none'; // Ocultar el campo de tratamiento
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al obtener el tratamiento:', error);
-                    tratamientoTextarea.value = ''; // Limpiar el campo en caso de error
-                    tratamientoContainer.style.display = 'none'; // Ocultar el campo de tratamiento
-                });
+        const selectedValue = medicamentoSelect.value; // Obtener el valor del medicamento seleccionado
+        
+        if (selectedValue) {
+            mostrarTratamiento(selectedValue); // Mostrar el tratamiento correspondiente
         } else {
-            tratamientoContainer.style.display = 'none'; // Ocultar el campo si no se selecciona medicamento
+            // Si no se ha seleccionado un medicamento, ocultamos el contenedor de tratamiento
+            tratamientoContainer.style.display = 'none';
+            addMedicamentoButton.style.display = 'none'; // Ocultar el botón "Añadir otro medicamento"
         }
+    });
+
+    // Agregar un nuevo medicamento cuando el usuario haga clic en el botón "Añadir otro medicamento"
+    addMedicamentoButton.addEventListener('click', function () {
+        // Clonar el select de medicamento y agregarlo al contenedor
+        const nuevoMedicamentoItem = document.createElement('div');
+        nuevoMedicamentoItem.classList.add('form-group', 'medicamento-item');
+        nuevoMedicamentoItem.innerHTML = `
+            <label for="medicamento">Seleccione el Medicamento:</label>
+            <select name="medicamento[]" class="form-control" required>
+                <option value="" disabled selected>Seleccione un medicamento</option>
+                <?php foreach ($medicamentos as $medicamento): ?>
+                    <option value="<?php echo htmlspecialchars($medicamento['medicamento_id']); ?>">
+                        <?php echo htmlspecialchars($medicamento['nombre']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        `;
+        
+        // Agregar el nuevo medicamento al contenedor
+        document.getElementById('medicamentos-container').appendChild(nuevoMedicamentoItem);
+
+        // Mostrar el tratamiento para el nuevo medicamento seleccionado (de forma similar a como lo hacemos con el primer select)
+        nuevoMedicamentoItem.querySelector('select').addEventListener('change', function () {
+            const medicamentoId = this.value;
+            if (medicamentoId) {
+                mostrarTratamiento(medicamentoId); // Mostrar tratamiento cuando se seleccione un medicamento
+            }
+        });
     });
 });
 
 
+
+
+
 </script>
+
+
+
 <?php require("../../template/footer.php"); ?>
