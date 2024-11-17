@@ -87,7 +87,7 @@ class Citas
     public function procesar_cita()
     {
         $query = "UPDATE " . $this->table_name . " 
-                SET hora = :hora, estado = 'Agendado', medico_id = :medico_id
+                SET hora = :hora, estado = 'Agendado', medico_id = :medico_id, transaccion = 'No Pagado'
                 WHERE cita_id = :cita_id";
         $stmt = $this->conn->prepare($query);
 
@@ -148,10 +148,11 @@ class Citas
     // Método para consultar citas atendidas por paciente
     public function consultar_citas_atendidas_por_paciente($paciente_id)
     {
-        $query = "SELECT c.cita_id, c.fecha, c.hora, s.costo 
+        $query = "SELECT c.cita_id, c.fecha, h.hora, s.costo 
                   FROM citas c 
-                  INNER JOIN servicios_medicos s ON c.servicio_id = s.servicio_id 
-                  WHERE c.paciente_id = :paciente_id AND c.estado = 'Atendido'";
+                  INNER JOIN servicios_medicos s ON c.servicio_id = s.servicio_id
+                  INNER JOIN horas h ON h.id_hora = c.hora
+                  WHERE c.paciente_id = :paciente_id AND c.transaccion = 'No Pagado' AND c.estado NOT Like 'Cancelado' ";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':paciente_id', $paciente_id);

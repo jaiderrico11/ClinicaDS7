@@ -23,7 +23,7 @@ if ($pagoExitoso) {
         $db->beginTransaction();
 
         // Cambiar el estado de la cita a "Pagado"
-        $updateCitaQuery = "UPDATE citas SET estado = 'Pagado' WHERE cita_id = :cita_id";
+        $updateCitaQuery = "UPDATE citas SET transaccion = 'Pagado' WHERE cita_id = :cita_id";
         $stmt = $db->prepare($updateCitaQuery);
         $stmt->bindParam(':cita_id', $cita_id, PDO::PARAM_INT);
         
