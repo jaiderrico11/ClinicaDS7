@@ -10,6 +10,9 @@ $db = $database->getConnection();
 $citas = new Citas($db);
 $datos_medicos = new Datos_Medicos($db); // Instanciar la clase para los datos médicos
 
+// Inicialización de variables
+$padecimientos = [];
+
 // Verificamos si se ha pasado un ID de paciente
 if (isset($_GET['paciente_id'])) {
     $paciente_id = $_GET['paciente_id'];
@@ -25,6 +28,12 @@ if (isset($_GET['paciente_id'])) {
     // Obtener los datos médicos del paciente
     $datos_medicos->paciente_id = $paciente_id;
     $datos_medicos_data = $datos_medicos->obtenerPorPacienteId($paciente_id);
+
+    // Consulta para obtener los padecimientos
+    $query_padecimientos = "SELECT id_padecimiento, padecimiento FROM padecimiento";
+    $stmt = $db->prepare($query_padecimientos);
+    $stmt->execute();
+    $padecimientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
     // Manejar el caso cuando no se proporciona un ID
     $error = "No se ha proporcionado el ID del paciente.";
@@ -89,12 +98,6 @@ require("../../template/header.php");
                     <input type="text" id="direccion" name="direccion" class="form-control" readonly value="<?php echo htmlspecialchars($paciente_data['direccion']); ?>">
                 </div>
 
-                <!-- Diagnóstico -->
-                <h3 class="mt-4">Diagnóstico</h3>
-                <div class="form-group">
-                    <label for="diagnostico">Diagnóstico:</label>
-                    <input type="text" id="diagnostico" name="diagnostico" class="form-control" required>
-                </div>
 
                 <!-- Datos Médicos -->
                 <h3 class="mt-4">Datos Médicos</h3>
@@ -120,7 +123,22 @@ require("../../template/header.php");
                     <label for="alergias">Alergias:</label>
                     <textarea id="alergias" name="alergias" class="form-control" readonly required><?php echo isset($datos_medicos->alergias) ? htmlspecialchars($datos_medicos->alergias) : ''; ?></textarea>
                 </div>
-
+                <!-- Diagnóstico -->
+                <h3 class="mt-4">Diagnóstico</h3>
+                <div id="diagnosticos-container">
+                    <div class="form-group diagnostico-item">
+                        <label for="diagnostico">Diagnóstico:</label>
+                        <select id="diagnostico" name="diagnostico[]" class="form-control" required>
+                            <option value="" disabled selected>Seleccione un diagnóstico</option>
+                            <?php foreach ($padecimientos as $padecimiento): ?>
+                                <option value="<?php echo htmlspecialchars($padecimiento['id_padecimiento']); ?>">
+                                    <?php echo htmlspecialchars($padecimiento['padecimiento']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" id="add-diagnostico">Añadir Padecimiento</button>
                 <!-- Receta Médica -->
                 <h3 class="mt-4">Receta Médica</h3>
 
@@ -139,5 +157,80 @@ require("../../template/header.php");
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const diagnosticosContainer = document.getElementById('diagnosticos-container');
+    const addDiagnosticoButton = document.getElementById('add-diagnostico');
+    let padecimientosSeleccionados = new Set(); // Para almacenar los diagnósticos seleccionados
+
+    // Ocultar el botón inicialmente
+    addDiagnosticoButton.style.display = 'none';
+
+    // Función para verificar el último select
+    const validarUltimoDiagnostico = () => {
+        const lastSelect = diagnosticosContainer.querySelector('.diagnostico-item:last-child select');
+        const selectedValue = lastSelect ? lastSelect.value : '';
+
+        if (selectedValue && !padecimientosSeleccionados.has(selectedValue)) {
+            addDiagnosticoButton.style.display = 'inline-block'; // Mostrar el botón
+        } else {
+            addDiagnosticoButton.style.display = 'none'; // Ocultar el botón
+        }
+    };
+
+    // Detectar cambios en los selects
+    diagnosticosContainer.addEventListener('change', function (e) {
+        if (e.target && e.target.name === "diagnostico[]") {
+            const selectedValue = e.target.value;
+
+            if (padecimientosSeleccionados.has(selectedValue)) {
+                alert('Este diagnóstico ya ha sido seleccionado.');
+                e.target.value = ""; // Restablecer el select
+            } else {
+                validarUltimoDiagnostico(); // Verificar si el botón debe mostrarse
+            }
+        }
+    });
+
+    // Manejar el clic del botón "Añadir Padecimiento"
+    addDiagnosticoButton.addEventListener('click', function () {
+        const lastSelect = diagnosticosContainer.querySelector('.diagnostico-item:last-child select');
+        const selectedValue = lastSelect ? lastSelect.value : '';
+
+        if (!selectedValue || padecimientosSeleccionados.has(selectedValue)) {
+            alert('Debe seleccionar un diagnóstico válido antes de agregar otro.');
+            return;
+        }
+
+        // Agregar el diagnóstico seleccionado al conjunto
+        padecimientosSeleccionados.add(selectedValue);
+
+        // Crear un nuevo select para diagnóstico
+        const newDiagnostico = document.createElement('div');
+        newDiagnostico.classList.add('form-group', 'diagnostico-item');
+
+        newDiagnostico.innerHTML = `
+            <label for="diagnostico">Diagnóstico:</label>
+            <select id="diagnostico" name="diagnostico[]" class="form-control" required>
+                <option value="" disabled selected>Seleccione un diagnóstico</option>
+                <?php foreach ($padecimientos as $padecimiento): ?>
+                    <option value="<?php echo htmlspecialchars($padecimiento['id_padecimiento']); ?>">
+                        <?php echo htmlspecialchars($padecimiento['padecimiento']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        `;
+
+        // Agregar el nuevo select al contenedor
+        diagnosticosContainer.appendChild(newDiagnostico);
+
+        // Ocultar el botón hasta que se seleccione un nuevo diagnóstico
+        addDiagnosticoButton.style.display = 'none';
+    });
+
+    // Inicializar validación del botón al cargar la página
+    validarUltimoDiagnostico();
+});
+</script>
 
 <?php require("../../template/footer.php"); ?>
