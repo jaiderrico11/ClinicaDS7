@@ -16,8 +16,8 @@
                         <a href="../registrar/registrar_usuario.php" class="btn btn-primary mb-3">Registrar Usuario</a>
                         <a href="../listas/lista_usuarios.php" class="btn btn-primary mb-3">Ver todos los usuarios</a>
                         <a href="../crear/servicios_medicos.php" class="btn btn-primary mb-3">Definir y Consultar Servicios Médicos</a>
-                        <a href="../consultar/consultar_insumos.php" class="btn btn-primary mb-3">Control de Insumos</a>
-                        <a href="../consultar/consultar_medicamentos.php" class="btn btn-primary mb-3">Control de Inventario</a>
+                        <a href="../registrar/registrar_padecimiento.php" class="btn btn-primary mb-3">Control de Padecimientos</a>
+                        <a href="../registrar/registrar_medicamento.php" class="btn btn-primary mb-3">Control de Medicamentos</a>
                     </div>
                 </div>
             </div>
