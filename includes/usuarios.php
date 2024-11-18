@@ -71,7 +71,22 @@ class Usuarios
     }
     public function consultar_medicos_por_rol()
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE rol = 'Médico'";
+        $query = "SELECT * FROM usuarios
+                WHERE rol = 'Médico' AND NOT EXISTS(
+                    SELECT * FROM medicos WHERE usuarios.usuario_id = medicos.usuario_id)";
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+
+    public function consultar_medicos()
+    {
+        $query = "SELECT usuarios.usuario_id, usuarios.nombre, usuarios.email FROM usuarios
+                LEFT JOIN medicos ON medicos.usuario_id = usuarios.usuario_id
+                WHERE usuarios.rol = 'Médico'";
         $stmt = $this->conn->prepare($query);
 
         if ($stmt->execute()) {

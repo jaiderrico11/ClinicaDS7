@@ -1,6 +1,6 @@
-<?php require("../template/header.php") ?>
+<?php require("../../template/header.php") ?>
 
-<a href="../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
+<a href="../../controllers/cerrar_sesion.php" class="btn btn-secondary my-3 mx-4">Cerrar Sesión</a>
 
 <!-- Contenido principal -->
 <section class="container mt-5">
@@ -10,11 +10,11 @@
             <div class="card text-center">
                 <div class="card-body">
                     <p class="card-text">Consulta y genera reportes del sistema.</p>
-                    <a href="/views/registrar_medico.php" class="btn btn-success mb-3">Registro/Verificación de perfil médico</a>
+                    <a href="/views/registrar/registrar_medico.php" class="btn btn-success mb-3">Registro/Verificación de perfil médico</a>
                     <a href="#" class="btn btn-success mb-3">Gestión de turnos y asignación de personal</a>
                 </div>
             </div>
         </div>
 </section>
 
-<?php require("../template/footer.php") ?>
+<?php require("../../template/footer.php") ?>

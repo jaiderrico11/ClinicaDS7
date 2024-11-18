@@ -41,7 +41,7 @@ if ($pacientes->registrar_pacientes()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/inicio_recepcionista.php";
+        window.location.href = "../views/inicio/inicio_recepcionista.php";
     }, 5000);
 </script>
 

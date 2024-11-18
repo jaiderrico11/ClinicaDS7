@@ -86,7 +86,7 @@ class Medicos
     }
     public function obtener_medico_por_id($usuario_id)
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE usuario_id = ?";
+        $query = "SELECT * FROM " . $this->table_name . " LEFT JOIN servicios_medicos ON servicios_medicos.servicio_id WHERE usuario_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $usuario_id);
         $stmt->execute();
@@ -114,7 +114,7 @@ class Medicos
     // Eliminar médico
     public function eliminar_medico($usuario_id)
     {
-        $query = "DELETE FROM " . $this->table_name . " WHERE usuario_id = ?";
+        $query = "DELETE FROM usuarios WHERE usuario_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $usuario_id);
         return $stmt->execute();

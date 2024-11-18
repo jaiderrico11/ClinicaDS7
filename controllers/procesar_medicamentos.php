@@ -1,7 +1,7 @@
 <?php
-include "../includes/Database.php";
-include "../includes/Medicamentos.php";
-include "../includes/Padecimientos.php";
+include "../../includes/Database.php";
+include "../../includes/Medicamentos.php";
+include "../../includes/Padecimientos.php";
 
 $database = new Database();
 $db = $database->getConnection();
@@ -32,7 +32,7 @@ $stmt_padecimientos = $db->prepare($query_padecimientos);
 $stmt_padecimientos->execute();
 $padecimientos = $stmt_padecimientos->fetchAll(PDO::FETCH_ASSOC);
 
-require("../template/header.php");
+require("../../template/header.php");
 ?>
 <section class="container mt-5">
     <div class="text-center">
@@ -42,7 +42,7 @@ require("../template/header.php");
         <?php if (!empty($error_message)): ?>
             <div class="alert alert-danger"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <a href="../views/registrar/registrar_medicamento.php" class="btn btn-primary">Volver a registrar medicamento</a>
+        <a href="../views/registrar/registrar_medico.php" class="btn btn-primary">Volver a registrar medicamento</a>
     </div>
 </section>
-<?php require("../template/footer.php"); ?>
+<?php require("../../template/footer.php"); ?>

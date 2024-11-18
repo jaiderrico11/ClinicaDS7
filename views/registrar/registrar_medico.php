@@ -34,7 +34,21 @@
                 <!-- Campos adicionales para registrar al médico -->
                 <div class="mb-3">
                     <label for="especialidad" class="form-label">Especialidad</label>
-                    <input type="text" required id="especialidad" name="especialidad" class="form-control">
+                    <select required name="especialidad" id="especialidad" class="form-select">
+                        <option value="" selected disabled>Seleccione un Especialidad</option>
+                        <?php
+                        require_once "../../includes/Database.php";
+                        // Crear una instancia de la clase Database y obtener la conexión
+                        $database = new Database();
+                        $db = $database->getConnection();
+
+                        $stmt = $db->query("SELECT * FROM servicios_medicos");
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='" . $row['servicio_id'] . "'>" . htmlspecialchars($row['nombre_servicio']) . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -59,7 +73,7 @@
                     <a href="../listas/lista_medicos.php" class="btn btn-primary">Verificar Médicos</a>
                 </div>
                 <div class="text-center mt-2">
-                    <a href="../../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+                    <a href="../inicio/inicio_recursos_humanos.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
                 </div>
             </form>
         </div>

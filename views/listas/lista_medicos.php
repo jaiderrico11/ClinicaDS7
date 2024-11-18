@@ -9,7 +9,7 @@ $db = $database->getConnection();
 
 // Instanciamos la clase Usuarios para obtener los médicos
 $usuarios = new Usuarios($db);
-$medicos = $usuarios->consultar_medicos_por_rol(); // Obtener los usuarios con rol 'medico'
+$medicos = $usuarios->consultar_medicos(); // Obtener los usuarios con rol 'medico'
 
 ?>
 
@@ -17,7 +17,7 @@ $medicos = $usuarios->consultar_medicos_por_rol(); // Obtener los usuarios con r
 <?php if (isset($_GET['message'])): ?>
     <div class="alert alert-success"><?php echo htmlspecialchars($_GET['message']); ?></div>
 <?php endif; ?>
-<a href="../../index.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
+<a href="../inicio/inicio_recursos_humanos.php" class="btn btn-secondary my-3 mx-4">Regresar</a>
 
 <section class="container mt-2">
     <h2>Lista de Médicos Registrados</h2>

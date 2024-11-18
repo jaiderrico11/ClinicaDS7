@@ -38,7 +38,7 @@ if ($medico->registrar_medico()) {
 <!-- Script para redirigir después de 5 segundos -->
 <script>
     setTimeout(function() {
-        window.location.href = "../views/lista_medicos.php";
+        window.location.href = "../views/listas/lista_medicos.php";
     }, 5000);
 </script>
 

@@ -43,7 +43,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <form method="post">
             <div class="mb-3">
                 <label for="especialidad" class="form-label">Especialidad</label>
-                <input type="text" id="especialidad" name="especialidad" class="form-control" value="<?php echo htmlspecialchars($medico['especialidad']); ?>" required>
+                <input type="text" id="especialidad" name="especialidad" class="form-control" readonly value="<?php echo htmlspecialchars($medico['nombre_servicio']); ?>" required>
             </div>
 
             <div class="mb-3">
