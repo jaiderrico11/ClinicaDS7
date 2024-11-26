@@ -11,7 +11,7 @@
         background-image: url('../img/img login ds7.jpg'); /* Ruta a tu imagen */
         background-size: cover; /* Para cubrir toda la pantalla */
         background-position: center; /* Centrar la imagen */
-        background-repeat: no-repeat; /* No repetir la imagen */
+        background-repeat: no-repeat;
     }
 
     .container {
